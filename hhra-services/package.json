@@ -1,0 +1,9 @@
+{
+  "name": "hhra-services",
+  "version": "0.0.0",
+  "description": "hhra-services",
+  "main": "app.js",
+  "author": {
+    "name": ""
+  }
+}
