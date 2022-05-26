@@ -5,7 +5,7 @@ const constants = require('constants')
 
 const varsSchema = joi.object({
     PRODUCT_TYPE: joi.string()
-        .valid(constants.servers.map((server) => {server.key}))
+        .valid(constants.servers.map((server) => { server.key }))
         .default(constants.servers[0].hostname)
 }).unknown()
     .required();

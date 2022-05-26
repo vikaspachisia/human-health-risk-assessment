@@ -31,20 +31,31 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app.js" />
-    <Content Include="config\component\constants.js" />
-    <Content Include="config\component\server.js">
+    <Content Include="config\components\build.js">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="config\component\environment.js">
+    <Content Include="config\components\deploy.js">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="config\component\logger.js">
+    <Content Include="config\components\server.js">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="config\component\product.js">
+    <Content Include="config\components\logger.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="config\components\product.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="config\config.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="config\mobile.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="config\server-registry.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="config\web.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="core\services-client.js">
@@ -76,7 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="config\" />
-    <Folder Include="config\component\" />
+    <Folder Include="config\components\" />
     <Folder Include="middlewares\" />
     <Folder Include="core\" />
     <Folder Include="scripts\" />

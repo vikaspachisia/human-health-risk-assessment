@@ -29,14 +29,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app.js" />
-    <Content Include="config\components\constants.js" />
+    <Content Include="config\components\build.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="config\components\db.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="config\components\deploy.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="config\components\email.js">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="config\components\environment.js">
+    <Content Include="config\components\product.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="config\components\logger.js">

@@ -1,34 +1,47 @@
 'use strict'
 
 const joi = require('joi');
-const envConfig = require('environment')
+const build = require('build').build;
 
 const varsSchema = joi.object({
-    EMAILPROVIDER:
+    EMAIL_PROVIDER:
         joi.string().required()
-            .valid('mongo', 'postgresql', 'mysql')
-            .default('mongo'),
-    DBNAME:
+            .valid('aws', 'azure', 'gcp')
+            .default('aws'),
+    EMAIL_NAME:
         joi.string().required()
-            .default('hhra-db'),
-    DBUSERNAME:
+            .default('hhra-email'),
+    EMAIL_USERNAME:
         joi.string()
             .default(''),
-    DBPASSWORD:
+    EMAIL_PASSWORD:
         joi.string()
             .default(''),
-    DBPASSWORDHASH:
+    EMAIL_PASSWORDHASH:
         joi.string()
             .default(''),
-    SCHEME:
+    EMAIL_SCHEME:
         joi.string().required()
+            .when('PROVIDER', {
+                switch: [
+                    { is: 'aws', then: Joi.default('mongodb+srv') },
+                    { is: 'azure', then: Joi.default('postgresql') },
+                    { is: 'gcp', then: Joi.default('mysqlx+srv') }
+                ]
+            })
             .default('mongodb+srv'),
-    HOSTNAME:
+    EMAIL_HOSTNAME:
         joi.string().hostname().required()
             .default('localhost'),
-    PORT:
+    EMAIL_PORT:
         joi.number().required()
-            .default(27017)
+            .when('PROVIDER', {
+                switch: [
+                    { is: 'aws', then: Joi.default(27017) },
+                    { is: 'azure', then: Joi.default(5432) },
+                    { is: 'gcp', then: Joi.default(3306) }
+                ]
+            })
 }).unknown()
     .required();
 
@@ -39,12 +52,12 @@ if (error) {
 
 const config = {
     email: {
-        scheme: vars.SCHEME,
-        hostname: vars.HOSTNAME,
-        port: envConfig.env.isDebugBuild ? vars.PORT + 1 : vars.PORT,
-        dbname: vars.DBNAME,
-        dbusername: vars.DBUSERNAME,
-        dbpassword: vars.DBPASSWORDHASH != '' ? vars.DBPASSWORDHASH : vars.DBPASSWORD
+        scheme: vars.EMAIL_SCHEME,
+        hostname: vars.EMAIL_HOSTNAME,
+        port: build.isDebugBuild ? vars.PORT + 1 : vars.PORT,
+        name: vars.EMAIL_NAME,
+        username: vars.EMAIL_USERNAME,
+        password: vars.EMAIL_PASSWORDHASH != '' ? vars.EMAIL_PASSWORDHASH : vars.EMAIL_PASSWORD
     }
 };
 

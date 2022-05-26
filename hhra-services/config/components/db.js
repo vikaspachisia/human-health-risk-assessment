@@ -1,34 +1,47 @@
 'use strict'
 
 const joi = require('joi');
-const envConfig = require('environment')
+const build = require('build').build;
 
 const varsSchema = joi.object({
-    PROVIDER:
+    DB_PROVIDER:
         joi.string().required()
             .valid('mongo', 'postgresql', 'mysql')
             .default('mongo'),    
-    NAME:
+    DB_NAME:
         joi.string().required()
         .default('hhra-db'),
-    USERNAME:
+    DB_USERNAME:
         joi.string()
         .default(''),
-    PASSWORD:
+    DB_PASSWORD:
         joi.string()
             .default(''),
-    PASSWORDHASH:
+    DB_PASSWORDHASH:
         joi.string()
             .default(''),
-    SCHEME:
+    DB_SCHEME:
         joi.string().required()
+            .when('PROVIDER', {
+                switch: [
+                    { is: 'mongo', then: Joi.default('mongodb+srv') },
+                    { is: 'postgresql', then: Joi.default('postgresql') },
+                    { is: 'mysql', then: Joi.default('mysqlx+srv') }
+                ]
+            })
             .default('mongodb+srv'),
-    HOSTNAME:
+    DB_HOSTNAME:
         joi.string().hostname().required()
             .default('localhost'),
-    PORT:
+    DB_PORT:
         joi.number().required()
-            .default(27017)
+            .when('PROVIDER', {
+                switch: [
+                    { is: 'mongo', then: Joi.default(27017) },
+                    { is: 'postgresql', then: Joi.default(5432) },
+                    { is: 'mysql', then: Joi.default(3306) }
+                ]
+            })
 }).unknown()
     .required();
 
@@ -39,12 +52,12 @@ if (error) {
 
 const config = {
     db: {        
-        scheme: vars.SCHEME,
-        hostname: vars.HOSTNAME,
-        port: envConfig.env.isDebugBuild ? vars.PORT + 1 : vars.PORT,
-        name: vars.NAME,
-        username: vars.USERNAME,
-        password: vars.PASSWORDHASH != '' ? vars.PASSWORDHASH : vars.PASSWORD
+        scheme: vars.DB_SCHEME,
+        hostname: vars.DB_HOSTNAME,
+        port: build.isDebugBuild ? vars.DB_PORT + 1 : vars.DB_PORT,
+        name: vars.DB_NAME,
+        username: vars.DB_USERNAME,
+        password: vars.DB_PASSWORDHASH != '' ? vars.DB_PASSWORDHASH : vars.DB_PASSWORD
     }
 };
 
