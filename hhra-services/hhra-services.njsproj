@@ -53,13 +53,16 @@
     <Content Include="config\components\server.js">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="config\config.js">
+    <Content Include="config\index.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="core\comments.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="core\genders.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="core\index.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="core\units.js">
@@ -69,6 +72,9 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="models\device.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="models\index.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="models\role.js">

@@ -31,6 +31,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app.js" />
+    <Content Include="config\api.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="config\components\build.js">
       <SubType>Code</SubType>
     </Content>
@@ -46,25 +49,28 @@
     <Content Include="config\components\product.js">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="config\config.js">
+    <Content Include="config\index.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="config\mobile.js">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="config\server-registry.js">
+    <Content Include="config\components\server-registry.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="config\web.js">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="core\services-client.js">
+    <Content Include="core\index.js">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="deploy.js">
+    <Content Include="core\core.js">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="middlewares\logger.js">
+    <Content Include="middlewares\audit.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="middlewares\index.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="middlewares\session.js">
@@ -73,17 +79,51 @@
     <Content Include="pm2.js">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="routes\index.js" />
-    <Content Include="routes\device.js">
+    <Content Include="routers\index.js">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="routes\report.js">
+    <Content Include="routers\root.js">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="routes\users.js" />
+    <Content Include="routers\web.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="routers\mobile.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="routers\api.js" />
     <Content Include="package.json" />
-    <Content Include="public\stylesheets\main.css" />
     <Content Include="README.md" />
+    <Content Include="scripts\index.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="scripts\verify.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="tests\index.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="tests\test-core.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="tests\test-middlewares.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="tests\test-routers.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="tests\test-scripts.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="tests\test-utils.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="utils\index.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="utils\logger.js">
+      <SubType>Code</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="config\" />
@@ -93,11 +133,7 @@
     <Folder Include="scripts\" />
     <Folder Include="tests\" />
     <Folder Include="utils\" />
-    <Folder Include="public\" />
-    <Folder Include="public\images\" />
-    <Folder Include="public\javascripts\" />
-    <Folder Include="public\stylesheets\" />
-    <Folder Include="routes\" />
+    <Folder Include="routers\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
   <ProjectExtensions>

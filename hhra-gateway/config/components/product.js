@@ -4,34 +4,22 @@ const products = [
     [
         'web',
         {
-            name: 'Web Client',
-            description: 'The front-end/web client application primarily serving desktop form factors.',
-            default: {
-                hostname: 'localhost',
-                port: 3030
-            }
+            name: 'Web Client Gateway',
+            description: 'The front-end/web client application gateway primarily servicing desktop/laptop form factors.'
         }
     ],
     [
         'mobile',
         {
-            name: 'Mobile Client',
-            description: 'The front-end/web client application primarily service mobile form factors.',
-            default: {
-                hostname: 'localhost',
-                port: 3032
-            }
+            name: 'Mobile Client Gateway',
+            description: 'The front-end/web client application gateway primarily servicing mobile form factors.'            
         }
     ],
     [
         'api',
         {
-            name: 'API Client',
-            description: 'The api client application most likely not serving UI/UX.',
-            default: {
-                hostname: 'localhost',
-                port: 3034
-            }
+            name: 'API Client Gateway',
+            description: 'The api client application gateway that can improve api usage experience.'            
         }
     ]    
 ];
@@ -54,9 +42,7 @@ const config = {
     product: {
         type: vars.PRODUCT_TYPE,
         name: products[vars.PRODUCT_TYPE].name,
-        description: products[vars.PRODUCT_TYPE].description,
-        defaultHostname: products[vars.PRODUCT_TYPE].default.hostname,
-        defaultPort: products[vars.PRODUCT_TYPE].default.port
+        description: products[vars.PRODUCT_TYPE].description
     }
 };
 

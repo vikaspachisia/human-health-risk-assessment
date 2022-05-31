@@ -1,62 +1,45 @@
 'use strict'
 
-const products = [
-    [
-        'web',
-        {
-            name: 'Web Client',
-            description: 'The front-end/web client application primarily serving desktop form factors.',
-            default: {
-                hostname: 'localhost',
-                port: 3030
-            }
-        }
-    ],
-    [
-        'mobile',
-        {
-            name: 'Mobile Client',
-            description: 'The front-end/web client application primarily service mobile form factors.',
-            default: {
-                hostname: 'localhost',
-                port: 3032
-            }
-        }
-    ],
-    [
-        'api',
-        {
-            name: 'API Client',
-            description: 'The api client application most likely not serving UI/UX.',
-            default: {
-                hostname: 'localhost',
-                port: 3034
-            }
-        }
-    ]
+const joi = require('joi');
+const build = require('build').build;
+
+const server_contexts = [
+    { name: 'gateway', path: '/', router: 'gateway' }    
 ];
 
-const joi = require('joi');
+const servers = [
+    { name: 'web', path: '/web', router: 'web' },
+    { name: 'mobile', path: '/mobile', router: 'mobile' },
+    { name: 'api', path: '/api', router: 'api' }    
+];
+
+const server_hosts = [
+    { context: 'gateway', server: 'web', hostname: 'localhost', port: 4040 },
+    { context: 'gateway', server: 'mobile', hostname: 'localhost', port: 4042 },
+    { context: 'gateway', server: 'api', hostname: 'localhost', port: 4044 }    
+];
 
 const varsSchema = joi.object({
-    PRODUCT_TYPE: joi.string()
-        .valid(products.map((key, value) => { key }))
-        .default(products[0].key)
+    SERVER_CONTEXT: joi.string()
+        .valid(server_contexts['*.name']),
+    SERVER: joi.string()
+        .valid(servers['*.name']),
+    HOSTNAME: joi.string().hostname().required()
+        .default(server_hosts['context=${SERVER_CONTEXT}, server=${SERVER}'].hostname),
+    PORT: joi.number().required()
+        .default(server_hosts['context=${SERVER_CONTEXT}, server=${SERVER}'].port)
 }).unknown()
     .required();
 
 const { error, value: vars } = varsSchema.validate(process.env);
 if (error) {
-    throw new Error(`Config(product) validation error: ${error.message}`);
+    throw new Error(`Config(server) validation error: ${error.message}`);
 }
 
 const config = {
-    product: {
-        type: vars.PRODUCT_TYPE,
-        name: products[vars.PRODUCT_TYPE].name,
-        description: products[vars.PRODUCT_TYPE].description,
-        defaultHostname: products[vars.PRODUCT_TYPE].default.hostname,
-        defaultPort: products[vars.PRODUCT_TYPE].default.port
+    server: {
+        hostname: vars.HOSTNAME,
+        port: build.isDebugBuild ? vars.PORT + 1 : vars.PORT
     }
 };
 
