@@ -1,11 +1,15 @@
 'use strict';
 
 var config = require('./config/index');
-var debug = require('debug')(config.product.name);
+var debug = require('debug')(config.app.name);
+var express = require('express');
+var session = require('express-session');
+var sessionStore = require('memorystore')(session);
 var path = require('path');
+var parseurl = require('parseurl')
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var express = require('express');
+
 
 var middlewares = require('./middlewares/index');
 var routers = require('./routers/index');
@@ -13,10 +17,18 @@ var routers = require('./routers/index');
 var app = express();
 
 app.use(middlewares.auditHandler.logRequest());
-app.use(middlewares.sessionHandler.newSession());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+app.use(session({
+    cookie: { maxAge: 86400000 },
+    store: new sessionStore({
+        checkPeriod: 86400000 // prune expired entries every 24h
+    }),
+    resave: false,
+    secret: config.app.session_secret
+}))
 
 app.use('/', routers.rootRouter);
 
@@ -51,7 +63,7 @@ app.use(function (err, req, res, next) {
     });
 });
 
-app.set('port', config.server.port);
+app.set('port', config.deploy.port);
 
 var server = app.listen(app.get('port'), function () {
     debug('Express server listening on port ' + server.address().port);

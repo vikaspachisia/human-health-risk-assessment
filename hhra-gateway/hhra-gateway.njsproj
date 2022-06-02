@@ -40,13 +40,10 @@
     <Content Include="config\components\deploy.js">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="config\components\server.js">
-      <SubType>Code</SubType>
-    </Content>
     <Content Include="config\components\logger.js">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="config\components\product.js">
+    <Content Include="config\components\app.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="config\index.js">
@@ -55,7 +52,7 @@
     <Content Include="config\mobile.js">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="config\components\server-registry.js">
+    <Content Include="config\components\servers.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="config\web.js">
@@ -67,16 +64,11 @@
     <Content Include="core\core.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="ecosystem.config.js" />
     <Content Include="middlewares\audit.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="middlewares\index.js">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="middlewares\session.js">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="pm2.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="routers\index.js">

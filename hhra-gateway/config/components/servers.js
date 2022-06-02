@@ -2,10 +2,9 @@
 
 const joi = require('joi');
 
-const config = {
-    registry: {
-        server_registry: [
-            { context: 'user', server: 'account', hostname: 'localhost', port: 4040 },
+const servers = {
+    server: [
+            ['account', { context: 'user', server: , hostname: 'localhost', port: 4040 },
             { context: 'user', server: 'profile', hostname: 'localhost', port: 4042 },
             { context: 'user', server: 'auth', hostname: 'localhost', port: 4044 },
             { context: 'device', server: 'account', hostname: 'localhost', port: 4046 },
@@ -19,6 +18,29 @@ const config = {
             { context: 'notification', server: 'phone', hostname: 'localhost', port: 6062 }
         ]
     }
+};
+
+const varsSchema = joi.object({
+    SERVERS: joi.array.items(
+        joi.array.items(
+            joi.object({
+                hostname: joi.string.hostname().required(),
+                port: joi.number().required()
+            })
+        )
+            .required()
+    )
+        .required()    
+}).unknown()
+    .required();
+
+const { error, value: vars } = varsSchema.validate(process.env);
+if (error) {
+    throw new Error(`Config(servers) validation error: ${error.message}`);
+}
+
+const config = {
+    servers: new Map(vars.servers)
 };
 
 module.exports = config

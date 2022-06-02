@@ -1,12 +1,12 @@
 'use strict'
 
 const joi = require('joi');
-const deploy = require('deploy').deploy;
+const build = require('build');
 
 const envVarsSchema = joi.object({
     LOGGER_LEVEL: joi.string()
         .valid('error', 'warn', 'info', 'verbose', 'debug')
-        .default(deploy.isDevelopment ? 'verbose' : 'info'),
+        .default(build.configuration.isDebugBuild ? 'debug' : 'info'),
     LOGGER_ENABLED: joi.boolean()
         .truthy('true')
         .falsy('false')

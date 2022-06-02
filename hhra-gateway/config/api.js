@@ -1,9 +1,9 @@
 'use strict'
 
+const app = require('./components/app');
 const build = require('./components/build');
 const deploy = require('./components/deploy');
 const logger = require('./components/logger');
-const server = require('./components/server');
-const server_registry = require('./components/server-registry');
+const servers = require('./components/servers');
 
-module.exports = Object.assign({}, build, deploy, logger, server, server_registry);
+module.exports = Object.assign({}, app, build, deploy, logger, servers);

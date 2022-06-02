@@ -1,11 +1,12 @@
 'use strict'
 
 const joi = require('joi');
+const deploy = require('deploy');
 
 const varsSchema = joi.object({    
     BUILD_CONFIGURATION: joi.string()
         .valid('debug', 'release')
-        .default(deploy.isDevelopment ? 'debug' : 'release'),
+        .default(deploy.env.isDevelopment ? 'debug' : 'release'),
     BUILD_ARCHITECTURE: joi.string()
         .valid('x86', 'x64', 'arm', 'arm64')
         .default('x64')
