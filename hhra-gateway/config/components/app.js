@@ -34,24 +34,24 @@ const apps = new Map([
 
 const varsSchema = joi.object({
     APPID: joi.string()
-        .valid(apps.keys((k) => k))
-        .default(apps[0].key),
-    SESSION_SECRET: joi.array.items(joi.string().required())
+        .valid(joi.array().unique().items(...apps.keys((k) => k)))
+        .default(apps.keys().next().value),
+    SESSION_SECRET: joi.array().items(joi.string().required())
         .required()
-        .default([joi.ref('APPID')])
+        .default(Array.from(joi.ref('APPID')))
 }).unknown()
     .required();
 
 const { error, value: vars } = varsSchema.validate(process.env);
 if (error) {
-    throw new Error(`Config(context) validation error: ${error.message}`);
+    throw new Error(`Config(app) validation error: ${error.message}`);
 }
 
 const config = {
     app : {
-        name: vars.name,
-        type: apps[vars.name].type,
-        description: contexts[vars.name].description,
+        id: vars.APPID,
+        name: apps[vars.APPID].name,
+        description: contexts[vars.APPID].description,
         session_secret: vars.SESSION_SECRET
     }
 };
