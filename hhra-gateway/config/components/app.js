@@ -1,45 +1,44 @@
 'use strict'
+const joi = require('joi');
 
-const apps = [
+const apps = new Map([
     [
         'monolith',
         {
-            type: 'Monolith Gateway',
+            name: 'monolith gateway',
             description: 'The gateway servicing all form factors (web, mobile, api...).'
         }
     ],
     [
         'web',
         {
-            type: 'Web Gateway',
+            name: 'web gateway',
             description: 'The gateway primarily servicing desktop/laptop form factors.'
         }
     ],
     [
         'mobile',
         {
-            type: 'Mobile Gateway',
+            name: 'mobile gateway',
             description: 'The gateway primarily servicing mobile form factors.'            
         }
     ],
     [
         'api',
         {
-            type: 'API Gateway',
+            name: 'api gateway',
             description: 'The gateway primarily servicing api requests.'
         }
     ]
-];
-
-const joi = require('joi');
+]);
 
 const varsSchema = joi.object({
-    name: joi.string()
-        .valid(apps.map((key, value) => {key}))
+    APPID: joi.string()
+        .valid(apps.keys((k) => k))
         .default(apps[0].key),
     SESSION_SECRET: joi.array.items(joi.string().required())
         .required()
-        .default([joi.ref('name')])
+        .default([joi.ref('APPID')])
 }).unknown()
     .required();
 

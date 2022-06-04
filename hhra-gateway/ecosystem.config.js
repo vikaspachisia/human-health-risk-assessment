@@ -1,9 +1,10 @@
 module.exports = {
     apps: [{
-      name: 'web',
-    script: 'app.js',
+        name: 'web gateway',
+        script: 'app.js',
         watch: '.',
         env: {
+            APPID: 'web',
             BUILD_CONFIGURATION: "debug",
             BUILD_ARCHITECTURE: "x64",
             NODE_ENV: "development",
@@ -12,55 +13,60 @@ module.exports = {
             NODE_ENABLED: false,
             SESSION_SECRET: ["webv1.0"],
             LOGGER_ENABLED: true,
-            SERVERS: [
-                ['auth',
-                    ['user', { hostname: 'localhost', port: joi.ref('NODE_PORT') + 2, enabled: joi.when('NODE_ENABLED', { is: true, then: false, otherwise: true}) }],
-                    ['device', { hostname: 'localhost', port: joi.ref('NODE_PORT') + 4, enabled: joi.when('NODE_ENABLED', { is: true, then: false, otherwise: true }) }]
-                ],
-                [   'profile',
-                    ['user', { hostname: 'localhost', port: joi.ref('NODE_PORT') + 6, enabled: joi.when('NODE_ENABLED', { is: true, then: false, otherwise: true }) }],
-                    ['device', { hostname: 'localhost', port: joi.ref('NODE_PORT') + 8, enabled: joi.when('NODE_ENABLED', { is: true, then: false, otherwise: true }) }]
-                ],
-                [   'account',
-                    ['user', { hostname: 'localhost', port: joi.ref('NODE_PORT') + 10, enabled: joi.when('NODE_ENABLED', { is: true, then: false, otherwise: true }) }],
-                    ['device', { hostname: 'localhost', port: joi.ref('NODE_PORT') + 12, enabled: joi.when('NODE_ENABLED', { is: true, then: false, otherwise: true }) }]
-                ],
-                [   'audit',
-                    ['all', { hostname: 'localhost', port: joi.ref('NODE_PORT') + 14, enabled: joi.when('NODE_ENABLED', { is: true, then: false, otherwise: true }) }]
-                ],
-                [   'telemetry',
-                    ['all', { hostname: 'localhost', port: joi.ref('NODE_PORT') + 16, enabled: joi.when('NODE_ENABLED', { is: true, then: false, otherwise: true }) }],
-                    ['web', { hostname: 'localhost', port: joi.ref('NODE_PORT') + 18, enabled: joi.when('NODE_ENABLED', { is: true, then: false, otherwise: true }) }],
-                    ['mobile', { hostname: 'localhost', port: joi.ref('NODE_PORT') + 20, enabled: joi.when('NODE_ENABLED', { is: true, then: false, otherwise: true }) }],
-                    ['api', { hostname: 'localhost', port: joi.ref('NODE_PORT') + 22, enabled: joi.when('NODE_ENABLED', { is: true, then: false, otherwise: true }) }]
-                ],
-                [   'report',
-                    ['all', { hostname: 'localhost', port: joi.ref('NODE_PORT') + 24, enabled: joi.when('NODE_ENABLED', { is: true, then: false, otherwise: true }) }],
-                    ['web', { hostname: 'localhost', port: joi.ref('NODE_PORT') + 26, enabled: joi.when('NODE_ENABLED', { is: true, then: false, otherwise: true }) }],
-                    ['mobile', { hostname: 'localhost', port: joi.ref('NODE_PORT') + 28, enabled: joi.when('NODE_ENABLED', { is: true, then: false, otherwise: true }) }],
-                    ['api', { hostname: 'localhost', port: joi.ref('NODE_PORT') + 30, enabled: joi.when('NODE_ENABLED', { is: true, then: false, otherwise: true }) }]
-                ],
-                [   'chat',
-                    ['all', { hostname: 'localhost', port: joi.ref('NODE_PORT') + 32, enabled: joi.when('NODE_ENABLED', { is: true, then: false, otherwise: true }) }],
-                    ['web', { hostname: 'localhost', port: joi.ref('NODE_PORT') + 34, enabled: joi.when('NODE_ENABLED', { is: true, then: false, otherwise: true }) }],
-                    ['mobile', { hostname: 'localhost', port: joi.ref('NODE_PORT') + 36, enabled: joi.when('NODE_ENABLED', { is: true, then: false, otherwise: true }) }],
-                    ['api', { hostname: 'localhost', port: joi.ref('NODE_PORT') + 38, enabled: joi.when('NODE_ENABLED', { is: true, then: false, otherwise: true }) }]
-                ],
-                [   'phone',
-                    ['all', { hostname: 'localhost', port: joi.ref('NODE_PORT') + 40, enabled: joi.when('NODE_ENABLED', { is: true, then: false, otherwise: true }) }]
-                ]                 
-                ]
+            SERVERS: {
+                HOSTNAME: "localhost",
+                PORT: 5050,
+                ENABLED: true,
+                SERVICES:
+                    [
+                        ['auth',
+                            ['user', { hostname: 'localhost', port: 5052 }],
+                            ['device', { hostname: 'localhost', port: 5054 }]
+                        ],
+                        ['profile',
+                            ['user', { hostname: 'localhost', port: 5056 }],
+                            ['device', { hostname: 'localhost', port: 5058 }]
+                        ],
+                        ['account',
+                            ['user', { hostname: 'localhost', port: 5060 }],
+                            ['device', { hostname: 'localhost', port: 5062 }]
+                        ],
+                        ['audit',
+                            ['all', { hostname: 'localhost', port: 5064 }]
+                        ],
+                        ['telemetry',
+                            ['all', { hostname: 'localhost', port: 5066 }],
+                            ['web', { hostname: 'localhost', port: 5068 }],
+                            ['mobile', { hostname: 'localhost', port: 5070 }],
+                            ['api', { hostname: 'localhost', port: 5072 }]
+                        ],
+                        ['report',
+                            ['all', { hostname: 'localhost', port: 5074 }],
+                            ['web', { hostname: 'localhost', port: 5076 }],
+                            ['mobile', { hostname: 'localhost', port: 5078 }],
+                            ['api', { hostname: 'localhost', port: 5080 }]
+                        ],
+                        ['chat',
+                            ['all', { hostname: 'localhost', port: 5082 }],
+                            ['web', { hostname: 'localhost', port: 5084 }],
+                            ['mobile', { hostname: 'localhost', port: 5086 }],
+                            ['api', { hostname: 'localhost', port: 5088 }]
+                        ],
+                        ['phone',
+                            ['all', { hostname: 'localhost', port: 5090 }]
+                        ]
+                    ]
+            }
         },
         env_staging: {
-
+            BUILD_CONFIGURATION: "release",
+            NODE_ENV: "staging"
         },
         env_production: {
-
+            BUILD_CONFIGURATION: "release",
+            NODE_ENV: "production"
         }
-  }, {
-    script: './service-worker/',
-    watch: ['./service-worker']
-  }],
+    }],
 
   deploy : {
     production : {
