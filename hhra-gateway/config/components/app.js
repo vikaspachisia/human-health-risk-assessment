@@ -34,11 +34,10 @@ const apps = new Map([
 
 const varsSchema = joi.object({
     APPID: joi.string()
-        .valid(joi.array().unique().items(...apps.keys((k) => k)))
+        .valid(...apps.keys((k) => k))
         .default(apps.keys().next().value),
     SESSION_SECRET: joi.array().items(joi.string().required())
-        .required()
-        .default(Array.from(joi.ref('APPID')))
+        .default(joi.array().unique().items(joi.ref('APPID')))
 }).unknown()
     .required();
 
@@ -48,10 +47,10 @@ if (error) {
 }
 
 const config = {
-    app : {
+    app: {
         id: vars.APPID,
-        name: apps[vars.APPID].name,
-        description: contexts[vars.APPID].description,
+        name: apps.get(vars.APPID).name,
+        description: apps.get(vars.APPID).description,
         session_secret: vars.SESSION_SECRET
     }
 };
