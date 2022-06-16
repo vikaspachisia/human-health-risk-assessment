@@ -5,13 +5,10 @@ const joi = require('joi');
 const varsSchema = joi.object({
     NODE_ENV: joi.string()
         .valid('development', 'staging', 'production')
-        .required()
         .default('development'),
     NODE_HOSTNAME: joi.string().hostname()
-        .required()
         .default("localhost"),
     NODE_PORT: joi.number()
-        .required()
         .default(4040)
 }).unknown()
     .required();

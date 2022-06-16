@@ -36,8 +36,8 @@ const varsSchema = joi.object({
     APPID: joi.string()
         .valid(...apps.keys((k) => k))
         .default(apps.keys().next().value),
-    SESSION_SECRET: joi.array().items(joi.string().required())
-        .default(joi.array().unique().items(joi.ref('APPID')))
+    SESSION_SECRET: joi.string().required()
+        .default(joi.ref('APPID'))
 }).unknown()
     .required();
 
@@ -51,7 +51,7 @@ const config = {
         id: vars.APPID,
         name: apps.get(vars.APPID).name,
         description: apps.get(vars.APPID).description,
-        session_secret: vars.SESSION_SECRET
+        session_secret: vars.SESSION_SECRET.split(",")
     }
 };
 

@@ -12,7 +12,6 @@ try {
     config = require(`${appID}`);
     console.log(`loaded ${appID}...`);
 } catch (ex) {
-    console.log(`config exception: ${ex.code}`);
     if (ex.code === 'MODULE_NOT_FOUND') {
         throw new Error(`No config for process type: ${appID}`);
     }
