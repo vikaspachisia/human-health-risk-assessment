@@ -24,13 +24,13 @@ const varsSchema = joi.object({
 }).unknown()
     .required();
 
-const { error, value: vars } = varsSchema.validate(process.env);
+const { error, value: vars } = varsSchema.validate(JSON.parse(process.env));
 if (error) {
     throw new Error(`Config(servers) validation error: ${error.message}`);
 }
 
 const config = {
-    servers: vars.servers
+    servers: vars.SERVERS
 };
 
 module.exports = config
