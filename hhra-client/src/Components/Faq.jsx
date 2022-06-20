@@ -28,7 +28,7 @@ export default class Faq extends Component {
             <Accordion defaultActiveKey="0">
               <Accordion.Item eventKey="0">
                 <Accordion.Header>{plus_icon} What is Project COROMEC?</Accordion.Header>
-                <Accordion.Body>
+                <Accordion.Body className="text-justify">
                   Project Coromec, registered under ClinicalTrials.Gov (NCT04678193),
                   is a IRB approved real-time COVID19 epidemiology registry aimed at assessing
                   the feasibility of monitoring enrolled subjects’ infection progress using the
@@ -41,7 +41,7 @@ export default class Faq extends Component {
               </Accordion.Item>
               <Accordion.Item eventKey="1">
                 <Accordion.Header>{plus_icon} Is it Safe and Secure?</Accordion.Header>
-                <Accordion.Body>
+                <Accordion.Body className="text-justify">
                   Keeping global Health Data and Privacy in mind all data collection is electronically
                   de-identified and secured remotely with 256-bit encryption. Strict regional compliance is
                   followed to ensure regulatory requirements as approved by the IRB protocol registered at
