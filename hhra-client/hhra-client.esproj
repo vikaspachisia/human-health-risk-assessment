@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/0.5.7-alpha">
+﻿<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/0.5.26-alpha">
   <PropertyGroup Label="Globals">
     <ProjectGuid>f5f12fab-45d5-47af-899e-40fd41635723</ProjectGuid>
   </PropertyGroup>
@@ -9,6 +9,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Script Include="**" Exclude="*.esproj;**\node_modules\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Script Remove="src\services\secure-route.js" />
   </ItemGroup>
   <!-- This target is copied from the ASP.NET SPA template in order to ensure node_modules are in place. -->
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
