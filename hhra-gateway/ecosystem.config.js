@@ -11,7 +11,7 @@ module.exports = {
             NODE_HOSTNAME: "localhost",
             NODE_PORT: 4040,
             NODE_ENABLED: true,
-            SESSION_SECRET: 'webv1.0',
+            SECRET_KEYS: 'webv1.0',
             LOGGER_ENABLED: true,
             SERVERS: [
                 { name: 'account', hostname: 'localhost', port: 4040 },

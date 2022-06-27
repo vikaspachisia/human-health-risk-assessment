@@ -107,3 +107,9 @@ dist
 !.env.project
 .vs/
 *.user
+/hhra-gateway/bin
+/hhra-gateway/obj
+/hhra-services/bin
+/hhra-services/obj
+/hhra-test/bin
+/hhra-test/obj
