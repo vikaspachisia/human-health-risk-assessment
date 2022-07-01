@@ -14,13 +14,13 @@ module.exports = {
             SECRET_KEYS: 'webv1.0',
             LOGGER_ENABLED: true,
             SERVERS: [
-                { name: 'account', hostname: 'localhost', port: 4040 },
-                { name: 'profile', hostname: 'localhost', port: 4040 },
-                { name: 'aaa', hostname: 'localhost', port: 4040 },
-                { name: 'log', hostname: 'localhost', port: 4040 },
-                { name: 'report', hostname: 'localhost', port: 4040 },
-                { name: 'chat', hostname: 'localhost', port: 4040 },
-                { name: 'phone', hostname: 'localhost', port: 4040 }
+              { name: 'account', hostname: 'localhost', port: 4040 },
+              { name: 'profile', hostname: 'localhost', port: 4040 },
+              { name: 'aaa', hostname: 'localhost', port: 4040 },
+              { name: 'log', hostname: 'localhost', port: 4040 },
+              { name: 'report', hostname: 'localhost', port: 4040 },
+              { name: 'chat', hostname: 'localhost', port: 4040 },
+              { name: 'phone', hostname: 'localhost', port: 4040 }
             ]
         },
         env_staging: {

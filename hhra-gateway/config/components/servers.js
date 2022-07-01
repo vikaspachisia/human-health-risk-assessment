@@ -13,24 +13,34 @@ const servers = [
 ];
 
 const varsSchema = joi.object({
-    SERVERS: joi.array().items(
-        joi.object({
-            name: joi.string().required(),
-            hostname: joi.string().hostname().required(),
-            port: joi.number().required()
-        })
-    )
-        .default(servers)
+  SERVERS: joi.string().required()
+        .default(JSON.stringify(servers))
 }).unknown()
     .required();
 
-const { error, value: vars } = varsSchema.validate(JSON.parse(process.env));
+const { error, value: vars } = varsSchema.validate(process.env);
 if (error) {
     throw new Error(`Config(servers) validation error: ${error.message}`);
 }
 
+const serverSchema = joi.object({
+  SERVERS: joi.array().items(
+    joi.object({
+      name: joi.string().required(),
+      hostname: joi.string().hostname().required(),
+      port: joi.number().required()
+    })
+  )
+}).unknown()
+  .required();
+
+const { errorServer, value: varsServer } = serverSchema.validate(JSON.parse(vars.SERVERS));
+if (errorServer) {
+  throw new Error(`Config(servers) server validation error: ${errorServer.message}`);
+}
+
 const config = {
-    servers: vars.SERVERS
+  servers: varsServer.SERVERS
 };
 
 module.exports = config
