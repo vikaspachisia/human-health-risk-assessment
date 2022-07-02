@@ -1,9 +1,6 @@
 'use strict'
 const path = require('path');
-
-//const appID = path.join(__dirname, process.env.APPID);
 const appID = `./${process.env.APPID}`;
-//const appID = `./config/${process.env.APPID}`;
 
 
 let config;

@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const service = require('../services/index');
 
 const UserModel = class UserModel {
     model = null;
