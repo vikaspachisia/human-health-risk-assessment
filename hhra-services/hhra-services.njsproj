@@ -29,6 +29,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app.js" />
+    <Content Include="config\all.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="config\components\app.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="config\components\build.js">
       <SubType>Code</SubType>
     </Content>
@@ -41,16 +47,10 @@
     <Content Include="config\components\email.js">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="config\components\product.js">
-      <SubType>Code</SubType>
-    </Content>
     <Content Include="config\components\logger.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="config\components\phone.js">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="config\components\server.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="config\index.js">
@@ -71,6 +71,7 @@
     <Content Include="deploy.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="ecosystem.config.js" />
     <Content Include="models\device.js">
       <SubType>Code</SubType>
     </Content>
