@@ -1,12 +1,28 @@
 'use strict'
 
-const app = require('./components/app');
-const build = require('./components/build');
-const db = require('./components/db');
-const deploy = require('./components/deploy');
-const email = require('./components/email');
-const logger = require('./components/logger');
-const phone = require('./components/phone');
+const components = [
+  './components/app',
+  './components/build',
+  './components/db',
+  './components/deploy',
+  './components/email',
+  './components/logger',
+  './components/phone',
+];
 
+let allComponents = {};
+for (var component in components) {
+  try {
+    console.log(`loading ${component}...`);
+    currentComponent = require(`${component}`);
+    console.log(`loaded ${component}...`);
+    //allComponents = Object.assign({}, allComponents, currentComponent);
+  } catch (ex) {
+    if (ex.code === 'MODULE_NOT_FOUND') {
+      throw new Error(`No config for process type: ${component}`);
+    }
 
-module.exports = Object.assign({}, app, build, db, deploy, email, logger, phone);
+    throw ex;
+  }
+}
+module.exports = Object.assign({}, allComponents);
