@@ -44,10 +44,10 @@ export default class Faq extends Component {
                 <Accordion.Body className="text-justify">
                   Keeping global Health Data and Privacy in mind all data collection is electronically
                   de-identified and secured remotely with 256-bit encryption. Strict regional compliance is
-                  followed to ensure regulatory requirements as approved by the IRB protocol registered at
+                  followed to ensure regulatory requirements as approved by the IRB protocol registered at&nbsp;
                   <a href="http://www.clinicaltrials.gov" target="_blank">www.clinicaltrials.gov</a>.
-                  Please visit the links for details on data safety and security
-                  <a href="/GDPR" target="_blank">HIPAA, GDPR</a> and <a href="/privacy" target="_blank">Privacy Terms</a>.
+                  Please visit the links for details on data safety and security&nbsp;
+                  <a href="/GDPR" target="_blank">HIPAA, GDPR</a> and&nbsp;<a href="/privacy" target="_blank">Privacy Terms</a>.
                 </Accordion.Body>
               </Accordion.Item>
             </Accordion>

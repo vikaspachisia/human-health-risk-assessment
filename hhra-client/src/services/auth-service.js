@@ -2,20 +2,6 @@ import axios from "axios";
 
 const API_URL = "http://localhost:8080/api/auth/";
 
-const authentication = {
-  isLoggedIn: false,
-  onAuthentication() {
-    this.isLoggedIn = true;
-  },
-  onLogout() {
-    this.isLoggedIn = false;
-  },
-  getLogInStatus() {
-    return this.isLoggedIn;
-  }
-}
-
-
 class AuthService {
   login(username, password) {
     return axios
@@ -26,7 +12,6 @@ class AuthService {
       .then(response => {
         if (response.data.accessToken) {
           localStorage.setItem("user", JSON.stringify(response.data));
-          authentication.onAuthentication();
         }
 
         return response.data;
@@ -35,7 +20,6 @@ class AuthService {
 
   logout() {
     localStorage.removeItem("user");
-    authentication.onLogout();
   }
 
   register(fullname, username, email, password) {
