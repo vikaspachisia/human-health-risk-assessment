@@ -22,15 +22,18 @@ export default class Dashboard extends Component {
   componentDidMount() {
     const currentUser = AuthService.getCurrentUser();
 
-    if (!currentUser)
+    if (!currentUser) {
       this.setState({ redirect: "/home" });
+    }
 
-    this.setState({
-      currentUser: currentUser,
-      userReady: true,
-      showAdmin: currentUser.roles.includes("ROLE_ADMIN"),
-      showModerator: currentUser.roles.includes("ROLE_MODERATOR"),
-    })
+    if (currentUser) {
+      this.setState({
+        currentUser: currentUser,
+        userReady: true,
+        showAdmin: currentUser.roles.includes("ROLE_ADMIN"),
+        showModerator: currentUser.roles.includes("ROLE_MODERATOR"),
+      })
+    }
   }
 
   openModal = () => this.setState({ isOpen: true });

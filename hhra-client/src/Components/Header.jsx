@@ -80,6 +80,9 @@ export default class Header extends Component {
                 <Nav.Link href="/">Home</Nav.Link>
                 <Nav.Link href="/aboutus">About us</Nav.Link>
                 <Nav.Link href="/faq">FAQ</Nav.Link>
+                {currentUser && (
+                  <Nav.Link href="/dashboard">Dashboard</Nav.Link>
+                )}
               </Nav>
 
               {currentUser ? (
