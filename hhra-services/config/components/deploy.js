@@ -2,6 +2,11 @@
 
 const joi = require('joi');
 
+console.log('reading process environment...');
+let envVars = { ...process.env };
+console.log('read process environment.');
+
+console.log('creating joi schema...');
 const varsSchema = joi.object({
   NODE_ENV: joi.string()
     .valid('development', 'staging', 'production')
@@ -12,12 +17,16 @@ const varsSchema = joi.object({
     .default(6060)
 }).unknown()
   .required();
+console.log('created joi schema.');
 
-const { error, value: vars } = varsSchema.validate(process.env);
+console.log('validating data...');
+const { error, value: vars } = varsSchema.validate(envVars);
 if (error) {
   throw new Error(`Config(deploy) validation error: ${error.message}`);
 }
+console.log('validated data.');
 
+console.log('creating config(deploy)...');
 const config = {
   deploy: {
     env: {
@@ -30,5 +39,6 @@ const config = {
     port: vars.NODE_PORT
   }
 };
+console.log('created config(deploy).');
 
 module.exports = config

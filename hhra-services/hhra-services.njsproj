@@ -29,7 +29,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app.js" />
-    <Content Include="config\all.js">
+    <Content Include="config\hhra-services-group-all.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="config\components\app.js">
@@ -50,7 +50,7 @@
     <Content Include="config\components\logger.js">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="config\components\phone.js">
+    <Content Include="config\components\sms.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="config\index.js">

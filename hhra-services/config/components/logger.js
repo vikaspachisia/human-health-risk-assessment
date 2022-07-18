@@ -3,6 +3,11 @@
 const joi = require('joi');
 const buildConfig = require('./build');
 
+console.log('reading process environment...');
+let envVars = { ...process.env };
+console.log('read process environment.');
+
+console.log('creating joi schema...');
 const envVarsSchema = joi.object({
   LOGGER_LEVEL: joi.string()
     .valid('error', 'warn', 'info', 'verbose', 'debug')
@@ -13,17 +18,22 @@ const envVarsSchema = joi.object({
     .default(true)
 }).unknown()
   .required();
+console.log('created joi schema.');
 
-const { error, value: envVars } = envVarsSchema.validate(process.env);
+console.log('validating data...');
+const { error, value: envVars } = envVarsSchema.validate(envVars);
 if (error) {
   throw new Error(`Config(logger) validation error: ${error.message}`);
 }
+console.log('validated data.');
 
+console.log('creating config(logger)...');
 const config = {
   logger: {
     level: envVars.LOGGER_LEVEL,
     enabled: envVars.LOGGER_ENABLED
   }
 };
+console.log('created config(logger).');
 
 module.exports = config

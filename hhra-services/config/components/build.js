@@ -3,6 +3,11 @@
 const joi = require('joi');
 const deployConfig = require('./deploy');
 
+console.log('reading process environment...');
+let envVars = { ...process.env };
+console.log('read process environment.');
+
+console.log('creating joi schema...');
 const varsSchema = joi.object({
   BUILD_CONFIGURATION: joi.string()
     .valid('debug', 'release')
@@ -12,12 +17,16 @@ const varsSchema = joi.object({
     .default('x64')
 }).unknown()
   .required();
+console.log('created joi schema.');
 
-const { error, value: vars } = varsSchema.validate(process.env);
+console.log('validating data...');
+const { error, value: vars } = varsSchema.validate(envVars);
 if (error) {
   throw new Error(`Config(build) validation error: ${error.message}`);
 }
+console.log('validated data.');
 
+console.log('creating config(build)...');
 const config = {
   build: {
     configuration: {
@@ -39,5 +48,6 @@ const config = {
     }
   }
 };
+console.log('created config(build).');
 
 module.exports = config

@@ -4,35 +4,35 @@ const joi = require('joi');
 
 console.log('reading process environment...');
 let envVars = { ...process.env };
-envVars['EMAIL_PORTS'] = JSON.parse(envVars['EMAIL_PORTS']);
+envVars['SMS_PORTS'] = JSON.parse(envVars['SMS_PORTS']);
 console.log('read process environment.');
 
 console.log('creating joi schema...');
 const varsSchema = joi.object({
-  EMAIL_PROVIDER:
+  SMS_PROVIDER:
     joi.string().required()
       .valid('aws', 'azure', 'gcp')
       .default('aws'),
-  EMAIL_NAME:
+  SMS_NAME:
     joi.string().required()
-      .default('hhra-services-email-all'),
-  EMAIL_USERNAME:
+      .default('hhra-services-sms-all'),
+  SMS_USERNAME:
     joi.string()
       .default(''),
-  EMAIL_PASSWORD:
+  SMS_PASSWORD:
     joi.string()
       .default(''),
-  EMAIL_PASSWORDHASH:
+  SMS_PASSWORDHASH:
     joi.string()
       .default(''),
-  EMAIL_SECURE: joi.bool().required()
+  SMS_SECURE: joi.bool().required()
     .default(true),
-  EMAIL_HOSTNAME:
+  SMS_HOSTNAME:
     joi.string().hostname().required()
       .default('localhost'),
-  EMAIL_PORTS:
+  SMS_PORTS:
     joi.array().items(joi.number().required())
-      .when('EMAIL_SECURE', {
+      .when('SMS_SECURE', {
         is: true, then: joi.default([465, 25]), otherwise: joi.default([25, 465])
       })
 }).unknown()
@@ -42,22 +42,22 @@ console.log('created joi schema.');
 console.log('validating data...');
 const { error, value: vars } = varsSchema.validate(envVars);
 if (error) {
-    throw new Error(`Config(email) validation error: ${error.message}`);
+  throw new Error(`Config(sms) validation error: ${error.message}`);
 }
 console.log('validated data.');
 
-console.log('creating config(email)...');
+console.log('creating config(sms)...');
 const config = {
-  email: {
-    provider: vars.EMAIL_PROVIDER,
-    name: vars.EMAIL_NAME,
-    username: vars.EMAIL_USERNAME,
-    password: vars.EMAIL_PASSWORDHASH != '' ? vars.EMAIL_PASSWORDHASH : vars.EMAIL_PASSWORD,
-    secure: vars.EMAIL_SECURE,
-    hostname: vars.EMAIL_HOSTNAME,
-    ports: vars.EMAIL_PORTS
+  sms: {
+    provider: vars.SMS_PROVIDER,
+    name: vars.SMS_NAME,
+    username: vars.SMS_USERNAME,
+    password: vars.SMS_PASSWORDHASH != '' ? vars.SMS_PASSWORDHASH : vars.SMS_PASSWORD,
+    secure: vars.SMS_SECURE,
+    hostname: vars.SMS_HOSTNAME,
+    ports: vars.SMS_PORTS
   }
 };
-console.log('created config(email).');
+console.log('created config(sms).');
 
 module.exports = config
