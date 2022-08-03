@@ -21,7 +21,7 @@ const envVarsSchema = joi.object({
 console.log('created joi schema.');
 
 console.log('validating data...');
-const { error, value: envVars } = envVarsSchema.validate(envVars);
+const { error, value: vars } = envVarsSchema.validate(envVars);
 if (error) {
   throw new Error(`Config(logger) validation error: ${error.message}`);
 }
@@ -30,8 +30,8 @@ console.log('validated data.');
 console.log('creating config(logger)...');
 const config = {
   logger: {
-    level: envVars.LOGGER_LEVEL,
-    enabled: envVars.LOGGER_ENABLED
+    level: vars.LOGGER_LEVEL,
+    enabled: vars.LOGGER_ENABLED
   }
 };
 console.log('created config(logger).');

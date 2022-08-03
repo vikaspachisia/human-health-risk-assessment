@@ -32,9 +32,7 @@ const varsSchema = joi.object({
       .default('localhost'),
   EMAIL_PORTS:
     joi.array().items(joi.number().required())
-      .when('EMAIL_SECURE', {
-        is: true, then: joi.default([465, 25]), otherwise: joi.default([25, 465])
-      })
+      .default((parent) => parent.EMAIL_SECURE == true ? [465, 25] : [25, 465])      
 }).unknown()
   .required();
 console.log('created joi schema.');

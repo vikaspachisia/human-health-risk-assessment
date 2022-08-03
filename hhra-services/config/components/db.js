@@ -26,7 +26,7 @@ const varsSchema = joi.object({
         joi.string()
             .default(''),
     DB_SCHEME:
-        joi.string().required()
+        joi.string()
             .when('DB_PROVIDER', {
                 switch: [
                     { is: 'mongo', then: 'mongodb+srv' },
@@ -36,10 +36,10 @@ const varsSchema = joi.object({
             })
             .default('mongodb+srv'),
     DB_HOSTNAME:
-        joi.string().hostname().required()
+        joi.string().hostname()
             .default('localhost'),
     DB_PORT:
-        joi.number().required()
+        joi.number()
             .when('DB_PROVIDER', {
                 switch: [
                     { is: 'mongo', then: 27017 },

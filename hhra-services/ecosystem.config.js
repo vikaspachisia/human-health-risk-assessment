@@ -24,14 +24,20 @@ module.exports = {
       DB_NAME: 'hhra-services-db-all',
       //Email details
       EMAIL_PROVIDER: 'aws',
+      EMAIL_NAME: 'hhra-services-email-all',
       EMAIL_HOSTNAME: 'email-smtp.us-west-1.amazonaws.com',
       EMAIL_PORTS: [465, 25],
       EMAIL_SECURE: true,
       EMAIL_USER:'AKIAW77T7ANQHGOAE23C',
-      EMAIL_PWD: 'BKvSJR+WKmqQ2agf8Zgs1n7tn2ioyO7F2i95OlyFt/dL',
-      EMAIL_FROM: 'ghl@aventyn.com'
+      EMAIL_PWD: 'BKvSJR+WKmqQ2agf8Zgs1n7tn2ioyO7F2i95OlyFt/dL',      
       //SMS details
-      
+      SMS_PROVIDER: 'aws',
+      SMS_NAME: 'hhra-services-email-all',
+      SMS_HOSTNAME: 'email-smtp.us-west-1.amazonaws.com',
+      SMS_PORTS: [465, 25],
+      SMS_SECURE: true,
+      SMS_USER: 'AKIAW77T7ANQHGOAE23C',
+      SMS_PWD: 'BKvSJR+WKmqQ2agf8Zgs1n7tn2ioyO7F2i95OlyFt/dL'
     },
     env_staging: {
       BUILD_CONFIGURATION: "release",
