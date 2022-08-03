@@ -166,6 +166,7 @@ export default class Register extends Component {
                           aria-label="Input fullname"
                           aria-describedby="btnGroupAddon"
                           onChange={this.formValChange}
+                          onBlur={this.formValChange}
                           disabled={(this.state.loading) ? "disabled" : ""}
                         />
                         {isError.fullname.length > 0 && (
@@ -187,6 +188,7 @@ export default class Register extends Component {
                           aria-label="Input username"
                           aria-describedby="btnGroupAddon"
                           onChange={this.formValChange}
+                          onBlur={this.formValChange}
                           disabled={(this.state.loading) ? "disabled" : ""}
                         />
                         {isError.username.length > 0 && (
@@ -208,6 +210,7 @@ export default class Register extends Component {
                           aria-label="Input email id"
                           aria-describedby="btnGroupAddon"
                           onChange={this.formValChange}
+                          onBlur={this.formValChange}
                           disabled={(this.state.loading) ? "disabled" : ""}
                         />
                         {isError.email.length > 0 && (
@@ -229,6 +232,7 @@ export default class Register extends Component {
                           aria-label="Input password"
                           aria-describedby="btnGroupAddon"
                           onChange={this.formValChange}
+                          onBlur={this.formValChange}
                           disabled={(this.state.loading) ? "disabled" : ""}
                         />
                         {isError.password.length > 0 && (

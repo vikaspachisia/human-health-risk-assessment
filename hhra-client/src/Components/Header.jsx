@@ -5,9 +5,13 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Home";
 import Faq from "./Faq";
 import Aboutus from "./Aboutus";
-import Login from "./Login";
-import Register from "./Register";
+import SignIn from "./SignIn";
+import SignUp from "./SignUp";
 import Profile from "./Profile";
+import Dashboard from "./Dashboard";
+import DashboardAdmin from "./DashboardAdmin";
+import DashboardModerator from "./DashboardModerator";
+import DashboardUser from "./DashboardUser";
 
 import EventBus from "../common/EventBus";
 import AuthService from "../services/auth-service";
@@ -76,6 +80,9 @@ export default class Header extends Component {
                 <Nav.Link href="/">Home</Nav.Link>
                 <Nav.Link href="/aboutus">About us</Nav.Link>
                 <Nav.Link href="/faq">FAQ</Nav.Link>
+                {currentUser && (
+                  <Nav.Link href="/dashboard">Dashboard</Nav.Link>
+                )}
               </Nav>
 
               {currentUser ? (
@@ -86,23 +93,24 @@ export default class Header extends Component {
 
                   <NavDropdown title={currentUser.username} id="collasible-nav-dropdown">
                     {showAdminBoard && (
-                      <NavDropdown.Item href="/admin"> <span className="fas fa-user-cog" /> Admin Dashboard</NavDropdown.Item>
+                      <NavDropdown.Item href="/dashboardAdmin"> <span className="fas fa-user-cog" /> Admin Dashboard</NavDropdown.Item>
                     )}
                     {showModeratorBoard && (
-                      <NavDropdown.Item href="/mode"> <span className="fas fa-user-cog" /> Moderator Dashboard</NavDropdown.Item>
+                      <NavDropdown.Item href="/dashboardModerator"> <span className="fas fa-user-cog" /> Moderator Dashboard</NavDropdown.Item>
                     )}
                     {currentUser && (
-                      <NavDropdown.Item href="/user"><span className="fas fa-user-cog" /> User Dashboard</NavDropdown.Item>
+                      <NavDropdown.Item href="/dashboardUser"><span className="fas fa-user-cog" /> User Dashboard</NavDropdown.Item>
                     )}
+                    <NavDropdown.Item href="/dashboard"><span className="fas fa-user-cog" /> Dashboard</NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
-                    <NavDropdown.Item href="/" onClick={this.logOut}> <span className="fas fa-sign-out-alt" /> Logout</NavDropdown.Item>
+                    <NavDropdown.Item href="/" onClick={this.logOut}> <span className="fas fa-sign-out-alt" /> Sign Out</NavDropdown.Item>
                   </NavDropdown>
 
                 </div>
               ) : (
                 <div className="navbar-nav ml-auto">
-                  <Nav.Link href="/login" > <span className="fas fa-sign-in-alt" /> Login</Nav.Link>
+                  <Nav.Link href="/signin" > <span className="fas fa-sign-in-alt" /> Sign In</Nav.Link>
                   <Nav.Link href="/signup" > <span className="fas fa-user-plus" /> Sign up</Nav.Link>
                 </div>
               )}
@@ -111,40 +119,29 @@ export default class Header extends Component {
           </Container>
         </Navbar>
 
-        < div className="container mt-4" >
+        <div className="container mt-4">
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/home" element={<Home />} />
               <Route path="aboutus" element={<Aboutus />} />
               <Route path="faq" element={<Faq />} />
-              <Route path="signup" element={<Register />} />
-
-              {/*Secure routing: for sibling routing*/}
-              {/*<Route element={<SecuredRoute isAllowed={false} />}>*/}
-              {/*  <Route path="aboutus" element={<Aboutus />} />*/}
-              {/*  <Route path="faq" element={<Faq />} />*/}
-              {/*</Route>*/}
+              <Route path="signup" element={<SignUp />} />
 
               {/*Secure routing: for Individual routing*/}
-
-              <Route path="/login" element={
+              <Route path="/signin" element={
                 <SecuredRoute redirectPath="/profile" isAllowed={currentUser ? false : true}>
-                  <Login />
+                  <SignIn />
                 </SecuredRoute>
               }
               />
 
-              <Route path="/profile" element={
-                <SecuredRoute redirectPath="/home" isAllowed={true}>
-                  <Profile />
-                </SecuredRoute>
-              }
-              />
+              <Route path="profile" element={<Profile />} />
 
-              {/*<Route path="admin" element={<Admin />} />*/}
-              {/*<Route path="mode" element={<Moderator />} />*/}
-              {/*<Route path="user" element={<User />} />*/}
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="dashboardUser" element={<DashboardUser />} />
+              <Route path="dashboardAdmin" element={<DashboardAdmin />} />
+              <Route path="dashboardModerator" element={<DashboardModerator />} />
 
               <Route path="*" element={<p>There's nothing here: 404!</p>} />
             </Routes>

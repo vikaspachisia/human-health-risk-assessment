@@ -26,7 +26,7 @@ const formValid = ({ isError, validator, ...rest }) => {
   return isValid1 && isValid2;
 };
 
-export default class Login extends Component {
+export default class SignIn extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -54,7 +54,7 @@ export default class Login extends Component {
     if (formValid(this.state)) {
       AuthService.login(this.state.username, this.state.password).then(
         () => {
-          window.location.href = '/';
+          window.location.href = '/dashboard';
         },
         error => {
           const resMessage =
@@ -139,6 +139,7 @@ export default class Login extends Component {
                       aria-label="Input username"
                       aria-describedby="btnGroupAddon"
                       onChange={this.formValChange}
+                      onBlur={this.formValChange}
                       disabled={(this.state.loading) ? "disabled" : ""}
                     />
                     {isError.username.length > 0 && (
@@ -159,6 +160,7 @@ export default class Login extends Component {
                       aria-label="Input password"
                       aria-describedby="btnGroupAddon"
                       onChange={this.formValChange}
+                      onBlur={this.formValChange}
                       disabled={(this.state.loading) ? "disabled" : ""}
                     />
                     {isError.password.length > 0 && (
@@ -172,7 +174,7 @@ export default class Login extends Component {
                     {this.state.loading && (
                       <span className="spinner-border spinner-border-sm"></span>
                     )}
-                    <span> Login</span>
+                    <span> Sign In</span>
                   </button>
                 </div>
 
