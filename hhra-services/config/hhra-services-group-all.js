@@ -10,12 +10,13 @@ const components = [
   './components/sms',
 ];
 
-let currentComponent;
-let allComponents = {};
+let loadedComponents = [];
 for (var componentID in components) {
   console.log(`loading ${components[componentID]}...`);
-  currentComponent = require(`${components[componentID]}`);
+  loadedComponents[componentID] = require(`${components[componentID]}`);
   console.log(`loaded ${components[componentID]}.`);
-  //allComponents = Object.assign({}, allComponents, currentComponent);
 }
-//module.exports = Object.assign({}, allComponents);
+
+console.log("activecomponents:" + JSON.stringify(loadedComponents));
+
+module.exports = Object.assign({}, ...loadedComponents);

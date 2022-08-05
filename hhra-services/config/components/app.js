@@ -77,6 +77,7 @@ console.log('read process environment.');
 
 console.log('creating joi schema...');
 const varsSchema = joi.object({
+  APP_NAME: joi.string().default('hhra-services-group-all'),
   ALLOWED_APPS: joi.array().items(joi.string().required().valid(...apps.keys((k) => k)))
     .default(Array.from(apps.keys())),
   BLOCKED_APPS: joi.array().items(joi.string().valid(...apps.keys((k) => k)))
@@ -97,6 +98,7 @@ console.log('validated data.');
 console.log('creating config(app)...');
 const config = {
   app: {
+    name: vars.APP_NAME,
     allowed: vars.ALLOWED_APPS.map(appid => [appid, apps.get(appid)]),
     blocked: vars.BLOCKED_APPS.map(appid => [appid, apps.get(appid)]),
     secretkeys: vars.SECRET_KEYS

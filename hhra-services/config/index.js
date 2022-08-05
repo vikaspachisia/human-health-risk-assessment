@@ -1,16 +1,16 @@
 'use strict'
 const path = require('path');
-const appID = `./${process.env.APPID}`;
+const appName = `./${process.env.APP_NAME}`;
 
 
 let config;
 try {
-  console.log(`loading ${appID}...`);
-  config = require(`${appID}`);
-  console.log(`loaded ${appID}...`);
+  console.log(`loading ${appName}...`);
+  config = require(`${appName}`);
+  console.log(`loaded ${appName}...`);
 } catch (ex) {
   if (ex.code === 'MODULE_NOT_FOUND') {
-    throw new Error(`No config for process type: ${appID}`);
+    throw new Error(`No config for process type: ${appName}`);
   }
 
   throw ex;

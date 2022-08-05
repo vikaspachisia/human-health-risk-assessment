@@ -13,7 +13,7 @@ module.exports = {
       NODE_PORT: 4040,
       NODE_ENABLED: true,
       //App details
-      APPID: "hhra-services-group-all",
+      APP_NAME: "hhra-services-group-all",
       ALLOWED_APPS: ['account', 'profile', 'aaa', 'log', 'report', 'chat', 'phone'],
       BLOCKED_APPS: [],
       SECRET_KEYS: ['webv1.0'],
@@ -32,7 +32,7 @@ module.exports = {
       EMAIL_PWD: 'BKvSJR+WKmqQ2agf8Zgs1n7tn2ioyO7F2i95OlyFt/dL',      
       //SMS details
       SMS_PROVIDER: 'aws',
-      SMS_NAME: 'hhra-services-email-all',
+      SMS_NAME: 'hhra-services-sms-all',
       SMS_HOSTNAME: 'email-smtp.us-west-1.amazonaws.com',
       SMS_PORTS: [465, 25],
       SMS_SECURE: true,
