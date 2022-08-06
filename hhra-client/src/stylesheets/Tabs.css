@@ -1,0 +1,104 @@
+/*
+    CSS for horizonal tabs
+*/
+
+
+.tab-header {
+  width: 100%;
+  background: #f1f1f1;
+}
+
+.tab-content {
+  border-top: 1px solid #aaa;
+  padding-top: 0px;
+  background: #fafafa;
+  padding-bottom: 0px;
+}
+
+.tab-buttons {
+  margin-bottom: 0px;
+}
+
+.tab-btn {
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  outline: none;
+  padding: 5px 9px;
+  cursor: pointer;
+  transition: all ease-in-out .2s;
+  border-top: 3px solid transparent;
+  /*color: rgba(0,0,0,.4);*/
+  background: transparent;
+  background: #f1f1f1;
+  line-height: 1rem;
+}
+
+.tab-buttons button:hover {
+  border-top: 3px solid #42b3f4;
+}
+
+.tab-active {
+  /*background: #c1c1c1;*/
+  border-top: 3px solid rgb(186, 121, 203);
+  color: rgb(186, 121, 203);
+}
+
+
+
+/*
+    CSS for vertical tabs
+*/
+
+.VTabs {
+  height: 100%;
+  display: flex;
+}
+
+.VTabList {
+  width: 15rem;
+  background: #f1f1f1;
+  margin-bottom:0px;
+}
+
+.VTabPanel {
+  flex: 1;
+  display: none;
+  padding: 1.5rem 0.5rem 1.5rem 3rem;
+}
+
+  .VTabPanel.is-active {
+    display: block;
+  }
+
+.VButton {
+  display: inline-block;
+  width: 100%;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: inherit;
+  border: none;
+  outline: none;
+  padding: 0.7rem 1rem;
+  cursor: pointer;
+  transition: all ease-in-out .2s;
+  border-right: 3px solid transparent;
+  /*color: rgba(0,0,0,.4);*/
+  background: transparent;
+  background: #f1f1f1;
+  line-height: 1rem;
+}
+
+  .VButton:focus {
+    outline: 0;
+    background: #c1c1c1;
+  }
+
+  .VButton:hover {
+    border-right: 3px solid #42b3f4;
+    background: #d9d9d9;
+  }
+
+.VTab.is-active .VButton {
+  border-right: 3px solid rgb(186, 121, 203);
+}

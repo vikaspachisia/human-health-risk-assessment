@@ -1,8 +1,9 @@
-import './App.css';
-import "bootstrap/dist/css/bootstrap.min.css"
+import './stylesheets/fontawesome.css'
+import "bootstrap/dist/css/bootstrap.min.css";
+import './stylesheets/App.css';
 
-import Header from './Components/Header';   // Include Navbar
-import Footer from './Components/Footer';   // Include Footer
+import Header from './components/Header';   // Include Navbar
+import Footer from './components/Footer';   // Include Footer
 
 function App() {
   return (

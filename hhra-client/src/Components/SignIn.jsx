@@ -1,5 +1,5 @@
 import '../stylesheets/Login.css';
-import '../stylesheets/fontawesome.css'
+
 
 import React, { Component } from "react";
 import AuthService from "../services/auth-service";
@@ -113,9 +113,9 @@ export default class SignIn extends Component {
         <div className="col-md-12 col-xs-12 login logincard-container">
 
           <div className="col-md-4 col-xs-12 card logincard">
-            <h4 className="card-header text-center">
+            <div className="card-header text-center fw-bold">
               Sign In
-            </h4>
+            </div>
 
             <img
               src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"

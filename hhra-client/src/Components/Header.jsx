@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap"
+import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Home from "./Home";
@@ -11,7 +11,10 @@ import Profile from "./Profile";
 import Dashboard from "./Dashboard";
 import DashboardAdmin from "./DashboardAdmin";
 import DashboardModerator from "./DashboardModerator";
-import DashboardUser from "./DashboardUser";
+
+import PatientList from "../PersonDetails/PatientList";
+import EditPersonDetails from "../PersonDetails/editpersondetails"
+import UpdateRecord from "./UpdateRecord"
 
 import EventBus from "../common/EventBus";
 import AuthService from "../services/auth-service";
@@ -68,7 +71,7 @@ export default class Header extends Component {
             <Navbar.Brand href="/">
               <img
                 src="/logoMain.png"
-                width="120"
+                width="160"
                 height="30"
                 className="d-inline-block align-top"
                 alt="GHL"
@@ -99,11 +102,11 @@ export default class Header extends Component {
                       <NavDropdown.Item href="/dashboardModerator"> <span className="fas fa-user-cog" /> Moderator Dashboard</NavDropdown.Item>
                     )}
                     {currentUser && (
-                      <NavDropdown.Item href="/dashboardUser"><span className="fas fa-user-cog" /> User Dashboard</NavDropdown.Item>
+                      <NavDropdown.Item href="/patientList"><span className="fas fa-user-cog" /> PatientList</NavDropdown.Item>
                     )}
                     <NavDropdown.Item href="/dashboard"><span className="fas fa-user-cog" /> Dashboard</NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+                    <NavDropdown.Item href="/profile"><span className="fas fa-user-file" /> Profile</NavDropdown.Item>
                     <NavDropdown.Item href="/" onClick={this.logOut}> <span className="fas fa-sign-out-alt" /> Sign Out</NavDropdown.Item>
                   </NavDropdown>
 
@@ -139,7 +142,11 @@ export default class Header extends Component {
               <Route path="profile" element={<Profile />} />
 
               <Route path="dashboard" element={<Dashboard />} />
-              <Route path="dashboardUser" element={<DashboardUser />} />
+              <Route path="patientList" element={<PatientList />} />
+              <Route path="editpersondetails" element={<EditPersonDetails />} />
+              <Route path="updaterecord" element={<UpdateRecord />} />
+
+
               <Route path="dashboardAdmin" element={<DashboardAdmin />} />
               <Route path="dashboardModerator" element={<DashboardModerator />} />
 

@@ -1,44 +1,106 @@
 import React, { Component } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
+
 import AuthService from "../services/auth-service";
-import Modal from 'react-bootstrap/Modal'
-import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form'
+import UserService from "../services/user-service";
+
+import "../stylesheets/dashboard.css";
 
 export default class Dashboard extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      isLoading: false,
       redirect: null,
       useready: false,
       showAdmin: false,
       showModerator: false,
       isOpen: false,
-      currentUser: { username: "" }
+      currentUser: { username: "" },
+      getAllDocCount: {
+        patients: 0,
+        volunteers: 0,
+        admins: 0,
+      }
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const currentUser = AuthService.getCurrentUser();
 
     if (!currentUser) {
       this.setState({ redirect: "/home" });
     }
 
+    let isAdmin = false;
+    let isModerator = false;
+
     if (currentUser) {
+      isAdmin = currentUser.roles.includes("ROLE_ADMIN");
+      isModerator = currentUser.roles.includes("ROLE_MODERATOR");
+
       this.setState({
         currentUser: currentUser,
         userReady: true,
-        showAdmin: currentUser.roles.includes("ROLE_ADMIN"),
-        showModerator: currentUser.roles.includes("ROLE_MODERATOR"),
+        showAdmin: isAdmin,
+        showModerator: isModerator,
       })
     }
+
+    await this.getAllDocCount(isAdmin || isModerator);
   }
 
   openModal = () => this.setState({ isOpen: true });
-
   closeModal = () => this.setState({ isOpen: false });
+
+  async getAllDocCount(bGetList) {
+    this.setState({
+      isLoading: true,
+    });
+
+    if (bGetList) {
+
+      UserService.getAdminList().then(
+        response => {
+          const userList = response.data;
+
+          this.setState(prevState => ({
+            getAllDocCount: {                      // object that we want to update
+              ...prevState.getAllDocCount,         // keep all other key-value pairs
+              admins: userList.length,            // update the value of specific key
+            }
+          }))
+        },
+        error => {
+          console.log((error.response && error.response.data) ? error.message : error.toString());
+        }
+      );
+
+      UserService.getVolunteerList().then(
+        response => {
+          const userList = response.data;
+
+          this.setState(prevState => ({
+            getAllDocCount: {                      // object that we want to update
+              ...prevState.getAllDocCount,         // keep all other key-value pairs
+              volunteers: userList.length,         // update the value of specific key
+            }
+          }))
+        },
+        error => {
+          console.log((error.response && error.response.data) ? error.message : error.toString());
+        }
+      );
+
+    }
+
+    this.setState({
+      isLoading: false,
+    });
+  }
+
+
 
   render() {
     const { showAdmin, showModerator } = this.state;
@@ -52,92 +114,77 @@ export default class Dashboard extends Component {
         {(this.state.userReady) ?
           <div>
 
-            <div className="row">
-              {showAdmin && (
-                <div className="col-md-4 g-pad-bottom">
-                  <div className="col-md-12 col-xs-12 card">
-                    <h5 className="card-header">
-                      Manage Users
-                    </h5>
-                    <div className="card-body">
-                      <p> Yet to come</p>
+            <div className="dashboardpage">
+              <div className="topheader">
+                <ul>
+                  <li>
+                    <i class="far fa-arrow-alt-circle-right fa-2x" aria-hidden="true"></i>
+                  </li>
+                  <li>
+                    <span>Dashboard</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="first_section">
+                <div className="row">
+                  <div className="col-md-4 mb-3">
+                    {" "}
+                    <Link to="../patientList" style={{ color: 'inherit', textDecoration: 'inherit' }}>
+                      <div className="box">
+                        {" "}
+                        <div className="box_containt">
+                          <h1 style={{ fontWeight: "700", color: "#BA79CB", fontSize: "30px", }}>
+                            {this.state.getAllDocCount.patients}
+                          </h1>
+
+                          <span style={{ fontWeight: "700", color: "#BA79CB", }} > Patients </span>
+                        </div>
+                        <i class="fa fa-user-injured fa-4x" aria-hidden="true"></i>
+
+                      </div>
+                    </Link>
+                  </div>
+
+                  {(showModerator || showAdmin) && (<div className="col-md-4 mb-3">
+                    {" "}
+                    <div className="box">
+                      {" "}
+                      <div className="box_containt">
+                        <h1
+                          style={{ fontWeight: "700", color: "#FFA812", fontSize: "30px", }} >
+                          {this.state.getAllDocCount.volunteers}
+                        </h1>
+
+                        <span style={{ fontWeight: "700", color: "#FFA812", }} > Volunteers </span>
+                      </div>
+                      <i class="fa fa-user-md fa-4x" aria-hidden="true"></i>
                     </div>
                   </div>
-                </div>
-              )}
+                  )}
 
-              {(showAdmin || showModerator) && (
-                <div className="col-md-4 g-pad-bottom">
-                  <div className="col-md-12 col-xs-12 card">
-                    <h5 className="card-header">
-                      Patient Reporting
-                    </h5>
-                    <div className="card-body">
-                      <p> Yet to come</p>
+                  {showAdmin && (<div className="col-md-4 mb-3">
+                    {" "}
+                    <div className="box">
+                      {" "}
+                      <div className="box_containt">
+                        <h1 style={{ fontWeight: "700", color: "#00A65A", fontSize: "30px", }} >
+                          {this.state.getAllDocCount.admins}
+                        </h1>
+
+                        <span style={{ fontWeight: "700", color: "#00A65A", }} > Admins </span>
+                      </div>
+                      <i class="fa fa-user-tie fa-4x" aria-hidden="true"></i>
                     </div>
                   </div>
-                </div>
-              )}
-
-              <div className="col-md-4 g-pad-bottom">
-                <div className="col-md-12 col-xs-12 card">
-                  <h5 className="card-header">
-                    Manage Patient
-                  </h5>
-                  <div className="card-body">
-                    <p> You can enroll new patient and update the details of existing patient. </p>
-
-                    <table style={{ "width": "100%" }}>
-                      <tr>
-                        <td>
-                          <a href="/register" className="btn btn-primary">New Patient</a>
-                        </td>
-                        <td style={{ "textAlign": "right" }}>
-                          <button variant="primary" className="btn btn-success" onClick={this.openModal}> Existing Patient </button>
-                        </td>
-                      </tr>
-                    </table>
-
-                  </div>
-
-                  <Modal show={this.state.isOpen} onHide={this.closeModal}>
-                    <Modal.Header closeButton>
-                      <Modal.Title>Search Patient</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                      <Form>
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                          <Form.Label>Email address</Form.Label>
-                          <Form.Control
-                            type="email"
-                            placeholder="name@example.com"
-                            autoFocus
-                          />
-                        </Form.Group>
-                        <Form.Group
-                          className="mb-3"
-                          controlId="exampleForm.ControlTextarea1"
-                        >
-                          <Form.Label>Example textarea</Form.Label>
-                          <Form.Control as="textarea" rows={3} />
-                        </Form.Group>
-                      </Form>
-                    </Modal.Body>
-                    <Modal.Footer>
-                      <Button variant="secondary" onClick={this.closeModal}>
-                        Close
-                      </Button>
-                      <Button variant="primary" onClick={this.closeModal}>
-                        Save Changes
-                      </Button>
-                    </Modal.Footer>
-                  </Modal>
+                  )}
 
                 </div>
               </div>
-            </div>
 
-          </div> : null}
+            </div >
+          </div > : null
+        }
       </div>
     );
   }

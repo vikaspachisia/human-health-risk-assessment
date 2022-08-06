@@ -11,7 +11,12 @@
     <Script Include="**" Exclude="*.esproj;**\node_modules\**" />
   </ItemGroup>
   <ItemGroup>
+    <Script Remove="src\components\DashboardAdmin.jsx" />
+    <Script Remove="src\components\DashboardModerator.jsx" />
+    <Script Remove="src\components\PatientList.jsx" />
     <Script Remove="src\services\secure-route.js" />
+    <Script Remove="src\stylesheets\newpersondetailsform.css" />
+    <Script Remove="src\ui\InputTextFeild.jsx" />
   </ItemGroup>
   <!-- This target is copied from the ASP.NET SPA template in order to ensure node_modules are in place. -->
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

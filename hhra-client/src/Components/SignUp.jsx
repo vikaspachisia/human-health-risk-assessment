@@ -1,5 +1,4 @@
 import '../stylesheets/Login.css';
-import '../stylesheets/fontawesome.css'
 
 import React, { Component } from "react";
 import AuthService from "../services/auth-service";
@@ -67,7 +66,7 @@ export default class Register extends Component {
         break;
       case "email":
         isError.email =
-          !isEmail(value) ? "A valid email id required." : "";
+          !isEmail(value) ? "A valid email id is required." : "";
         break;
       case "password":
         isError.password =
@@ -139,7 +138,7 @@ export default class Register extends Component {
         <div className="col-md-12 col-xs-12 login logincard-container">
 
           <div className="col-md-4 col-xs-12 card logincard">
-            <div className="card-header text-center">
+            <div className="card-header text-center fw-bold">
               Sign up
             </div>
 
@@ -155,13 +154,14 @@ export default class Register extends Component {
                 {!this.state.successful && (
                   <div>
                     <div className="form-group">
-                      <label htmlFor="fullname">Full Name:</label>
+                      <label htmlFor="fullname">Full name:</label>
                       <div className="input-group">
                         <div className="input-group-text" id="btnGroupAddon"><i className="fas fa-id-card"></i> </div>
                         <input
                           type="text"
                           name="fullname"
                           className={isError.fullname.length > 0 ? "is-invalid form-control" : "form-control"}
+                          autoComplete="off"
                           placeholder="Input full name"
                           aria-label="Input fullname"
                           aria-describedby="btnGroupAddon"
@@ -175,37 +175,15 @@ export default class Register extends Component {
                       </div>
                     </div>
 
-
                     <div className="form-group">
-                      <label htmlFor="username">Username:</label>
-                      <div className="input-group">
-                        <div className="input-group-text" id="btnGroupAddon"><i className="fas fa-user"></i> </div>
-                        <input
-                          type="text"
-                          name="username"
-                          className={isError.username.length > 0 ? "is-invalid form-control" : "form-control"}
-                          placeholder="Input username"
-                          aria-label="Input username"
-                          aria-describedby="btnGroupAddon"
-                          onChange={this.formValChange}
-                          onBlur={this.formValChange}
-                          disabled={(this.state.loading) ? "disabled" : ""}
-                        />
-                        {isError.username.length > 0 && (
-                          <span className="invalid-feedback">{isError.username}</span>
-                        )}
-                      </div>
-                    </div>
-
-
-                    <div className="form-group">
-                      <label htmlFor="username">Email:</label>
+                      <label htmlFor="email">Email:</label>
                       <div className="input-group">
                         <div className="input-group-text" id="btnGroupAddon"><i className="fas fa-envelope"></i> </div>
                         <input
                           type="text"
                           name="email"
                           className={isError.email.length > 0 ? "is-invalid form-control" : "form-control"}
+                          autoComplete="off"
                           placeholder="Input email id"
                           aria-label="Input email id"
                           aria-describedby="btnGroupAddon"
@@ -219,9 +197,30 @@ export default class Register extends Component {
                       </div>
                     </div>
 
+                    <div className="form-group">
+                      <label htmlFor="username">Username:</label>
+                      <div className="input-group">
+                        <div className="input-group-text" id="btnGroupAddon"><i className="fas fa-user"></i> </div>
+                        <input
+                          type="text"
+                          name="username"
+                          className={isError.username.length > 0 ? "is-invalid form-control" : "form-control"}
+                          autoComplete="off"
+                          placeholder="Input username"
+                          aria-label="Input username"
+                          aria-describedby="btnGroupAddon"
+                          onChange={this.formValChange}
+                          onBlur={this.formValChange}
+                          disabled={(this.state.loading) ? "disabled" : ""}
+                        />
+                        {isError.username.length > 0 && (
+                          <span className="invalid-feedback">{isError.username}</span>
+                        )}
+                      </div>
+                    </div>
 
                     <div className="form-group">
-                      <label htmlFor="username">Password:</label>
+                      <label htmlFor="password">Password:</label>
                       <div className="input-group">
                         <div className="input-group-text" id="btnGroupAddon"><i className="fas fa-key"></i> </div>
                         <input
