@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import "../stylesheets/editpersondetailsform.css";
+import "../stylesheets/EditPersonDetailsForm.css";
 
 
 export default class Physical extends Component {
@@ -8,18 +8,18 @@ export default class Physical extends Component {
     super();
     this.state = {
       physical: {
-        body_weight: 0,
+        body_weight: '',
         body_weight_in_pound: false,
-        body_height: 0,
-        body_waist: 0,
-        BMI: 0,
-        o2: 0,
-        temperatue: 0,
+        body_height: '',
+        body_waist: '',
+        BMI: '',
+        o2: '',
+        temperatue: '',
         temp_in_celcius: false,
-        body_fat: 0,
-        body_water: 0,
-        bone_density: 0,
-        muscle_mass: 0,
+        body_fat: '',
+        body_water: '',
+        bone_density: '',
+        muscle_mass: '',
       }
     };
   }
@@ -68,7 +68,7 @@ export default class Physical extends Component {
                             <input
                               type="number"
                               className="form-control no-spin"
-                              placeholder="Weight in kg/pound"
+                              placeholder="In kg/pound"
                               id="bodyweight"
                               name="bodyweight"
                               min="1" max="2000" step=".0001"

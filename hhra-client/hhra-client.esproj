@@ -14,8 +14,10 @@
     <Script Remove="src\components\DashboardAdmin.jsx" />
     <Script Remove="src\components\DashboardModerator.jsx" />
     <Script Remove="src\components\PatientList.jsx" />
+    <Script Remove="src\components\ViewPatient.jsx" />
+    <Script Remove="src\PersonDetails\persondetailsform.jsx" />
     <Script Remove="src\services\secure-route.js" />
-    <Script Remove="src\stylesheets\newpersondetailsform.css" />
+    <Script Remove="src\stylesheets\persondetailsform.css" />
     <Script Remove="src\ui\InputTextFeild.jsx" />
   </ItemGroup>
   <!-- This target is copied from the ASP.NET SPA template in order to ensure node_modules are in place. -->

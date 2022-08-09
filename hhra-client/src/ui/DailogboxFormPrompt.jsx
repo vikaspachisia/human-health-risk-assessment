@@ -26,11 +26,10 @@ export default function FormPrompt(props) {
             style={{
               height: "100%",
               display: "flex",
-
               justifyContent: "space-between",
             }}
           >
-            <h5 style={{ lineHeight: "40px", fontSize: "14px" }}>
+            <h5 style={{ lineHeight: "30px", fontSize: "15px", fontWeight: "bold" }}>
               {props.title}
             </h5>
             {props.isCloseBtnAppear === true ? (
@@ -38,14 +37,7 @@ export default function FormPrompt(props) {
                 onClick={props.onSetOpenDailog}
                 type="button"
                 className="btn btn-light"
-                style={{
-                  // marginTop: "5px",
-                  // marginLeft: "10px",
-                  height: "30px",
-                  fontSize: "12px",
-                  padding: "0px 20px",
-                  borderRadius: "20px",
-                }}
+                style={{ height: "30px", fontSize: "14px", padding: "0px 20px", borderRadius: "20px", }}
               >
                 <i className="fa fa-times" aria-hidden="true"></i>
               </button>
@@ -55,15 +47,9 @@ export default function FormPrompt(props) {
       </DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-slide-description">
-          <div style={{ fontSize: "12px" }}>{props.children}</div>
+          <div style={{ fontSize: "14px" }}>{props.children}</div>
         </DialogContentText>
       </DialogContent>
-      {/* <DialogActions>
-       
-        <Button onClick={handleClose} color="primary">
-          OK
-        </Button>
-      </DialogActions> */}
     </Dialog>
   );
 }

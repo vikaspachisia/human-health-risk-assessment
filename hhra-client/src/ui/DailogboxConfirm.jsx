@@ -26,7 +26,9 @@ export default function ConfirmDialogBox(props) {
       aria-describedby="alert-dialog-slide-description"
     >
       <DialogTitle id="alert-dialog-slide-title">
-        <div style={{ width: "200px" }}>{<h6> {props.title}</h6>}</div>
+        <div style={{ width: "200px" }}>
+          {<h5 style={{ fontSize: "15px", fontWeight: "bold" }}> {props.title}</h5>}
+        </div>
       </DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-slide-description">
@@ -36,7 +38,7 @@ export default function ConfirmDialogBox(props) {
               style={{ position: "relative", top: "0%", left: "40%" }}
             ></i>
           ) : (
-            <div style={{ fontSize: "13px" }}>{props.des}</div>
+            <div style={{ fontSize: "14px" }}>{props.des}</div>
           )}
         </DialogContentText>
       </DialogContent>
@@ -47,8 +49,7 @@ export default function ConfirmDialogBox(props) {
               style={{
                 borderRadius: "10px",
                 padding: "5px 10px",
-                fontSize: "12px",
-
+                fontSize: "13px",
                 marginRight: "10px",
               }}
               type="button"
@@ -60,7 +61,7 @@ export default function ConfirmDialogBox(props) {
             <button
               style={{
                 borderRadius: "10px",
-                fontSize: "12px",
+                fontSize: "13px",
                 padding: "5px 10px",
               }}
               onClick={handleClose}

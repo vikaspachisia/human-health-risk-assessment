@@ -3,8 +3,9 @@ import { Navigate, Link } from "react-router-dom";
 
 import AuthService from "../services/auth-service";
 import UserService from "../services/user-service";
+import PatientService from "../services/patient-service.js"
 
-import "../stylesheets/dashboard.css";
+import "../stylesheets/Dashboard.css";
 
 export default class Dashboard extends Component {
   constructor(props) {
@@ -60,6 +61,22 @@ export default class Dashboard extends Component {
     });
 
     if (bGetList) {
+
+      PatientService.getPatientCount().then(
+        response => {
+          const patientCount = response.data.count;
+
+          this.setState(prevState => ({
+            getAllDocCount: {                      // object that we want to update
+              ...prevState.getAllDocCount,         // keep all other key-value pairs
+              patients: patientCount,              // update the value of specific key
+            }
+          }))
+        },
+        error => {
+          console.log((error.response && error.response.data) ? error.message : error.toString());
+        }
+      );
 
       UserService.getAdminList().then(
         response => {
@@ -130,7 +147,7 @@ export default class Dashboard extends Component {
                 <div className="row">
                   <div className="col-md-4 mb-3">
                     {" "}
-                    <Link to="../patientList" style={{ color: 'inherit', textDecoration: 'inherit' }}>
+                    <Link to="../patientlist" style={{ color: 'inherit', textDecoration: 'inherit' }}>
                       <div className="box">
                         {" "}
                         <div className="box_containt">

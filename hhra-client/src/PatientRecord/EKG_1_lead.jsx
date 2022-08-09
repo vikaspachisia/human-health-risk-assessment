@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import "../stylesheets/editpersondetailsform.css";
+import "../stylesheets/EditPersonDetailsForm.css";
 
 
 export default class Blood extends Component {

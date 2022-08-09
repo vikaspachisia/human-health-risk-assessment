@@ -13,8 +13,7 @@ import DashboardAdmin from "./DashboardAdmin";
 import DashboardModerator from "./DashboardModerator";
 
 import PatientList from "../PersonDetails/PatientList";
-import EditPersonDetails from "../PersonDetails/editpersondetails"
-import UpdateRecord from "./UpdateRecord"
+import ViewPatient from "./ViewPatient"
 
 import EventBus from "../common/EventBus";
 import AuthService from "../services/auth-service";
@@ -142,9 +141,8 @@ export default class Header extends Component {
               <Route path="profile" element={<Profile />} />
 
               <Route path="dashboard" element={<Dashboard />} />
-              <Route path="patientList" element={<PatientList />} />
-              <Route path="editpersondetails" element={<EditPersonDetails />} />
-              <Route path="updaterecord" element={<UpdateRecord />} />
+              <Route path="patientlist" element={<PatientList />} />
+              <Route path="viewpatient" element={<ViewPatient />} />
 
 
               <Route path="dashboardAdmin" element={<DashboardAdmin />} />

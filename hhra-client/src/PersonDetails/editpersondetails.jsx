@@ -8,7 +8,7 @@ import AlertDialogBox from "../ui/DailogboxAlert";
 import ErorrDialogBox from "../ui/DailogboxError";
 
 import AuthService from "../services/auth-service";
-import EditPersonDetailsForm from "./editpersondetailsform";
+import EditPersonDetailsForm from "./EditPersonDetailsForm";
 
 
 function withRouter(Component) {

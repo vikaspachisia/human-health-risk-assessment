@@ -144,4 +144,88 @@ dl {
   margin-right: 0px;
 }
 
+.main_container {
+  background: #fdfdfd;
+  background-color: transparent;
+  border: 1px solid #D1D5D8;
+  border-radius: 3px;
+  width: 100%;
+  margin-top: 18px;
+  display: flex;
+  flex-direction: row;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
 
+.profile_container {
+  background: #f1f1f1;
+  border-right: 1px solid #dddddd;
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  margin: 0px;
+}
+
+.patient_name_container {
+  background: #c1c1c1;
+  border-bottom: 1px solid #dddddd;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 70px;
+  margin: 0px;
+}
+
+.cirlce_initial {
+  background-color: #151E28;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 45px;
+  height: 45px;
+  margin-left: 10px;
+  border-radius: 50%;
+  font-size: 22px;
+}
+
+.patient_name {
+  color: #4a4a4a;
+  font-weight: 600;
+  font-size: 20px;
+  margin-left: 5px;
+  margin-top: 5px;
+}
+
+
+.patient_details {
+  color: #2a2a2a;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.x-cite:before {
+  font-size: 0.8rem;
+  font-weight: 500;
+  font-style: italic;
+  content: "(ID : ";
+}
+
+.x-cite:after {
+  font-size: 0.8rem;
+  font-weight: 500;
+  font-style: italic;
+  content: ")";
+}
+
+.x-cite {
+  margin-left: 5px;
+  font-weight: 500;
+}
+
+.content_container {
+  background: #f9f9f9;
+  width: 100%;
+}

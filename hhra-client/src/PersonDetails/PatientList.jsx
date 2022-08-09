@@ -6,12 +6,13 @@ import '../stylesheets/Patient.css';
 import AuthService from "../services/auth-service";
 import UserService from "../services/user-service";
 import EventBus from "../common/EventBus";
+import PatientService from "../services/patient-service"
 
 import AlertDialogBox from "../ui/DailogboxAlert";
 import ConfirmDialogBox from "../ui/DailogboxConfirm";
 import ErorrDialogBox from "../ui/DailogboxError";
 import DailogboxFormPrompt from "../ui/DailogboxFormPrompt";
-import AddPersonDetails from "../PersonDetails/addpersondetails";
+import AddPersonDetails from "../PersonDetails/AddPersonDetails";
 
 export default class PatientList extends Component {
   constructor(props) {
@@ -19,11 +20,11 @@ export default class PatientList extends Component {
 
     this.state = {
       redirect: null,
-      content: "",
 
       serachText: "",
       isLoading: true,
-      limit: 10,
+      limit: 5,
+      limitIncreaseBy: 5,
 
       isLoadMoredata: false,
       isCloseBtnAppear: true,
@@ -57,397 +58,11 @@ export default class PatientList extends Component {
 
     UserService.getUserBoard().then(
       response => {
-        this.setState({
-          content: response.data,
-          patientlist: [
-            {
-              "bloodgroup": "A",
-              "birthdate": "2/3/1984",
-              "patientid": "300102217000",
-              "zip": "10965",
-              "sex": "Male",
-              "email": "admin@example.com",
-              "remark": "remarks",
-              "searchbyname": "Mmchaelbrown",
-              "city": "Pearl River",
-              "age": "38",
-              "phonenumber": "+1234567890",
-              "firstname": "Michael",
-              "state": "New York",
-              "imgaeurl": "https://firebasestorage.googleapis.com/v0/b/fir-hospital-management.appspot.com/o/images%2Fprofileimage.jpeg?alt=media&token=cbbe44b1-f3d1-4b4e-a50e-259257573b80",
-              "lastname": "Brown",
-              "address": "4347 Marshville Road",
-              "timeStamp": {
-                "seconds": 1657767907,
-                "nanoseconds": 80000000
-              }
-            },
-            {
-              "deathreportid": "300102217036",
-              "birthdate": "2/3/1990",
-              "isBedAllotted": true,
-              "age": "30",
-              "email": "admin@example.com",
-              "firstname": "Lucy",
-              "bedallotementid": "300102217038",
-              "searchbyname": "lucywhite",
-              "collectionName": "patients",
-              "timeStamp": {
-                "seconds": 1657767907,
-                "nanoseconds": 79000000
-              },
-              "operationreportid": "300102217035",
-              "imgaeurl": "https://firebasestorage.googleapis.com/v0/b/fir-hospital-management.appspot.com/o/images%2Fprofileimage.jpeg?alt=media&token=cbbe44b1-f3d1-4b4e-a50e-259257573b80",
-              "phonenumber": "+0123456789",
-              "birthreportid": "300102217037",
-              "state": "Oklahoma",
-              "isBeforeBirthAlloted": true,
-              "isBeforeDeathAlloted": true,
-              "address": "97 Bridge Street",
-              "zip": "74116",
-              "city": "Tulsa",
-              "sex": "Female",
-              "lastname": "White",
-              "bloodgroup": "B+",
-              "isBeforeOperationAlloted": true,
-              "remark": "remarks",
-              "patientid": "300102217001"
-            },
-            {
-              "email": "admin@example.com",
-              "patientid": "300102217002",
-              "sex": "Male",
-              "age": "36",
-              "remark": "remakrs",
-              "imgaeurl": "https://firebasestorage.googleapis.com/v0/b/fir-hospital-management.appspot.com/o/images%2Fprofileimage.jpeg?alt=media&token=cbbe44b1-f3d1-4b4e-a50e-259257573b80",
-              "phonenumber": "+0234567890",
-              "timeStamp": {
-                "seconds": 1657767907,
-                "nanoseconds": 79000000
-              },
-              "address": "2761 Thrash Trail",
-              "zip": "70093",
-              "state": "Louisiana",
-              "searchbyname": "frankhill",
-              "bloodgroup": "AB",
-              "firstname": "Frank",
-              "city": "BELLE CHASSE",
-              "lastname": "Hill",
-              "birthdate": "2/3/1984"
-            },
-            {
-              "bloodgroup": "A",
-              "birthdate": "2/3/1984",
-              "patientid": "300102217003",
-              "zip": "10965",
-              "sex": "Male",
-              "email": "admin@example.com",
-              "remark": "remarks",
-              "searchbyname": "Mmchaelbrown",
-              "city": "Pearl River",
-              "age": "38",
-              "phonenumber": "+1234567890",
-              "firstname": "Michael",
-              "state": "New York",
-              "imgaeurl": "https://firebasestorage.googleapis.com/v0/b/fir-hospital-management.appspot.com/o/images%2Fprofileimage.jpeg?alt=media&token=cbbe44b1-f3d1-4b4e-a50e-259257573b80",
-              "lastname": "Brown",
-              "address": "4347 Marshville Road",
-              "timeStamp": {
-                "seconds": 1657767907,
-                "nanoseconds": 80000000
-              }
-            },
-            {
-              "deathreportid": "300102217036",
-              "birthdate": "2/3/1990",
-              "isBedAllotted": true,
-              "age": "30",
-              "email": "admin@example.com",
-              "firstname": "Lucy",
-              "bedallotementid": "300102217038",
-              "searchbyname": "lucywhite",
-              "collectionName": "patients",
-              "timeStamp": {
-                "seconds": 1657767907,
-                "nanoseconds": 79000000
-              },
-              "operationreportid": "300102217035",
-              "imgaeurl": "https://firebasestorage.googleapis.com/v0/b/fir-hospital-management.appspot.com/o/images%2Fprofileimage.jpeg?alt=media&token=cbbe44b1-f3d1-4b4e-a50e-259257573b80",
-              "phonenumber": "+0123456789",
-              "birthreportid": "300102217037",
-              "state": "Oklahoma",
-              "isBeforeBirthAlloted": true,
-              "isBeforeDeathAlloted": true,
-              "address": "97 Bridge Street",
-              "zip": "74116",
-              "city": "Tulsa",
-              "sex": "Female",
-              "lastname": "White",
-              "bloodgroup": "B+",
-              "isBeforeOperationAlloted": true,
-              "remark": "remarks",
-              "patientid": "300102217004"
-            },
-            {
-              "email": "admin@example.com",
-              "patientid": "300102217005",
-              "sex": "Male",
-              "age": "36",
-              "remark": "remakrs",
-              "imgaeurl": "https://firebasestorage.googleapis.com/v0/b/fir-hospital-management.appspot.com/o/images%2Fprofileimage.jpeg?alt=media&token=cbbe44b1-f3d1-4b4e-a50e-259257573b80",
-              "phonenumber": "+0234567890",
-              "timeStamp": {
-                "seconds": 1657767907,
-                "nanoseconds": 79000000
-              },
-              "address": "2761 Thrash Trail",
-              "zip": "70093",
-              "state": "Louisiana",
-              "searchbyname": "frankhill",
-              "bloodgroup": "AB",
-              "firstname": "Frank",
-              "city": "BELLE CHASSE",
-              "lastname": "Hill",
-              "birthdate": "2/3/1984"
-            },
-            {
-              "bloodgroup": "A",
-              "birthdate": "2/3/1984",
-              "patientid": "300102217006",
-              "zip": "10965",
-              "sex": "Male",
-              "email": "admin@example.com",
-              "remark": "remarks",
-              "searchbyname": "Mmchaelbrown",
-              "city": "Pearl River",
-              "age": "38",
-              "phonenumber": "+1234567890",
-              "firstname": "Michael",
-              "state": "New York",
-              "imgaeurl": "https://firebasestorage.googleapis.com/v0/b/fir-hospital-management.appspot.com/o/images%2Fprofileimage.jpeg?alt=media&token=cbbe44b1-f3d1-4b4e-a50e-259257573b80",
-              "lastname": "Brown",
-              "address": "4347 Marshville Road",
-              "timeStamp": {
-                "seconds": 1657767907,
-                "nanoseconds": 80000000
-              }
-            },
-            {
-              "deathreportid": "300102217036",
-              "birthdate": "2/3/1990",
-              "isBedAllotted": true,
-              "age": "30",
-              "email": "admin@example.com",
-              "firstname": "Lucy",
-              "bedallotementid": "300102217038",
-              "searchbyname": "lucywhite",
-              "collectionName": "patients",
-              "timeStamp": {
-                "seconds": 1657767907,
-                "nanoseconds": 79000000
-              },
-              "operationreportid": "300102217035",
-              "imgaeurl": "https://firebasestorage.googleapis.com/v0/b/fir-hospital-management.appspot.com/o/images%2Fprofileimage.jpeg?alt=media&token=cbbe44b1-f3d1-4b4e-a50e-259257573b80",
-              "phonenumber": "+0123456789",
-              "birthreportid": "300102217037",
-              "state": "Oklahoma",
-              "isBeforeBirthAlloted": true,
-              "isBeforeDeathAlloted": true,
-              "address": "97 Bridge Street",
-              "zip": "74116",
-              "city": "Tulsa",
-              "sex": "Female",
-              "lastname": "White",
-              "bloodgroup": "B+",
-              "isBeforeOperationAlloted": true,
-              "remark": "remarks",
-              "patientid": "300102217007"
-            },
-            {
-              "email": "admin@example.com",
-              "patientid": "300102217008",
-              "sex": "Male",
-              "age": "36",
-              "remark": "remakrs",
-              "imgaeurl": "https://firebasestorage.googleapis.com/v0/b/fir-hospital-management.appspot.com/o/images%2Fprofileimage.jpeg?alt=media&token=cbbe44b1-f3d1-4b4e-a50e-259257573b80",
-              "phonenumber": "+0234567890",
-              "timeStamp": {
-                "seconds": 1657767907,
-                "nanoseconds": 79000000
-              },
-              "address": "2761 Thrash Trail",
-              "zip": "70093",
-              "state": "Louisiana",
-              "searchbyname": "frankhill",
-              "bloodgroup": "AB",
-              "firstname": "Frank",
-              "city": "BELLE CHASSE",
-              "lastname": "Hill",
-              "birthdate": "2/3/1984"
-            },
-            {
-              "bloodgroup": "A",
-              "birthdate": "2/3/1984",
-              "patientid": "300102217009",
-              "zip": "10965",
-              "sex": "Male",
-              "email": "admin@example.com",
-              "remark": "remarks",
-              "searchbyname": "Mmchaelbrown",
-              "city": "Pearl River",
-              "age": "38",
-              "phonenumber": "+1234567890",
-              "firstname": "Michael",
-              "state": "New York",
-              "imgaeurl": "https://firebasestorage.googleapis.com/v0/b/fir-hospital-management.appspot.com/o/images%2Fprofileimage.jpeg?alt=media&token=cbbe44b1-f3d1-4b4e-a50e-259257573b80",
-              "lastname": "Brown",
-              "address": "4347 Marshville Road",
-              "timeStamp": {
-                "seconds": 1657767907,
-                "nanoseconds": 80000000
-              }
-            },
-            {
-              "deathreportid": "300102217010",
-              "birthdate": "2/3/1990",
-              "isBedAllotted": true,
-              "age": "30",
-              "email": "admin@example.com",
-              "firstname": "Lucy",
-              "bedallotementid": "300102217038",
-              "searchbyname": "lucywhite",
-              "collectionName": "patients",
-              "timeStamp": {
-                "seconds": 1657767907,
-                "nanoseconds": 79000000
-              },
-              "operationreportid": "300102217035",
-              "imgaeurl": "https://firebasestorage.googleapis.com/v0/b/fir-hospital-management.appspot.com/o/images%2Fprofileimage.jpeg?alt=media&token=cbbe44b1-f3d1-4b4e-a50e-259257573b80",
-              "phonenumber": "+0123456789",
-              "birthreportid": "300102217037",
-              "state": "Oklahoma",
-              "isBeforeBirthAlloted": true,
-              "isBeforeDeathAlloted": true,
-              "address": "97 Bridge Street",
-              "zip": "74116",
-              "city": "Tulsa",
-              "sex": "Female",
-              "lastname": "White",
-              "bloodgroup": "B+",
-              "isBeforeOperationAlloted": true,
-              "remark": "remarks",
-              "patientid": "300102217011"
-            },
-            {
-              "email": "admin@example.com",
-              "patientid": "300102217012",
-              "sex": "Male",
-              "age": "36",
-              "remark": "remakrs",
-              "imgaeurl": "https://firebasestorage.googleapis.com/v0/b/fir-hospital-management.appspot.com/o/images%2Fprofileimage.jpeg?alt=media&token=cbbe44b1-f3d1-4b4e-a50e-259257573b80",
-              "phonenumber": "+0234567890",
-              "timeStamp": {
-                "seconds": 1657767907,
-                "nanoseconds": 79000000
-              },
-              "address": "2761 Thrash Trail",
-              "zip": "70093",
-              "state": "Louisiana",
-              "searchbyname": "frankhill",
-              "bloodgroup": "AB",
-              "firstname": "Frank",
-              "city": "BELLE CHASSE",
-              "lastname": "Hill",
-              "birthdate": "2/3/1984"
-            },
-            {
-              "bloodgroup": "A",
-              "birthdate": "2/3/1984",
-              "patientid": "300102217013",
-              "zip": "10965",
-              "sex": "Male",
-              "email": "admin@example.com",
-              "remark": "remarks",
-              "searchbyname": "Mmchaelbrown",
-              "city": "Pearl River",
-              "age": "38",
-              "phonenumber": "+1234567890",
-              "firstname": "Michael",
-              "state": "New York",
-              "imgaeurl": "https://firebasestorage.googleapis.com/v0/b/fir-hospital-management.appspot.com/o/images%2Fprofileimage.jpeg?alt=media&token=cbbe44b1-f3d1-4b4e-a50e-259257573b80",
-              "lastname": "Brown",
-              "address": "4347 Marshville Road",
-              "timeStamp": {
-                "seconds": 1657767907,
-                "nanoseconds": 80000000
-              }
-            },
-            {
-              "deathreportid": "300102217036",
-              "birthdate": "2/3/1990",
-              "isBedAllotted": true,
-              "age": "30",
-              "email": "admin@example.com",
-              "firstname": "Lucy",
-              "bedallotementid": "300102217038",
-              "searchbyname": "lucywhite",
-              "collectionName": "patients",
-              "timeStamp": {
-                "seconds": 1657767907,
-                "nanoseconds": 79000000
-              },
-              "operationreportid": "300102217035",
-              "imgaeurl": "https://firebasestorage.googleapis.com/v0/b/fir-hospital-management.appspot.com/o/images%2Fprofileimage.jpeg?alt=media&token=cbbe44b1-f3d1-4b4e-a50e-259257573b80",
-              "phonenumber": "+0123456789",
-              "birthreportid": "300102217037",
-              "state": "Oklahoma",
-              "isBeforeBirthAlloted": true,
-              "isBeforeDeathAlloted": true,
-              "address": "97 Bridge Street",
-              "zip": "74116",
-              "city": "Tulsa",
-              "sex": "Female",
-              "lastname": "White",
-              "bloodgroup": "B+",
-              "isBeforeOperationAlloted": true,
-              "remark": "remarks",
-              "patientid": "300102217014"
-            },
-            {
-              "email": "admin@example.com",
-              "patientid": "300102217015",
-              "sex": "Male",
-              "age": "36",
-              "remark": "remakrs",
-              "imgaeurl": "https://firebasestorage.googleapis.com/v0/b/fir-hospital-management.appspot.com/o/images%2Fprofileimage.jpeg?alt=media&token=cbbe44b1-f3d1-4b4e-a50e-259257573b80",
-              "phonenumber": "+0234567890",
-              "timeStamp": {
-                "seconds": 1657767907,
-                "nanoseconds": 79000000
-              },
-              "address": "2761 Thrash Trail",
-              "zip": "70093",
-              "state": "Louisiana",
-              "searchbyname": "frankhill",
-              "bloodgroup": "AB",
-              "firstname": "Frank",
-              "city": "BELLE CHASSE",
-              "lastname": "Hill",
-              "birthdate": "2/3/1984"
-            }
-          ]
-        });
+        this.onSetTotalNumOfPatient();
+        this.onFetchData(this.state.limit);
       },
       error => {
-        this.setState({
-          content:
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString()
-        });
-
+        this.setState({ isLoading: false, isSearching: false, });
         if (error.response && error.response.status === 401) {
           EventBus.dispatch("logout");
         }
@@ -456,8 +71,8 @@ export default class PatientList extends Component {
   }
 
   showMore = () => {
-    if (this.state.limit <= this.state.totalNumOfPatient) {
-      const limit = this.state.limit + 10;
+    if (this.state.limit < this.state.totalNumOfPatient) {
+      const limit = this.state.limit + this.state.limitIncreaseBy;
       this.setState({ limit: limit });
       this.onFetchData(limit);
     } else {
@@ -466,6 +81,29 @@ export default class PatientList extends Component {
       });
     }
   };
+
+  async onSetTotalNumOfPatient() {
+    this.setState({ isLoading: true });
+    const res = await PatientService.getPatientCount();
+    if (res.data && res.data.count) {
+      this.setState({ totalNumOfPatient: res.data.count, isLoading: false });
+    } else {
+      console.log("error occured while fetching patient count");
+      this.setState({ isLoading: false });
+    }
+  }
+
+  async onFetchData(limit) {
+    this.setState({ isLoadMoredata: true });
+
+    const fetchedDataList = await PatientService.getAll(limit);
+
+    if (fetchedDataList.data.length !== 0) {
+      this.setState({ patientlist: fetchedDataList.data, isLoadMoredata: false, isLoading: false, });
+    } else {
+      this.setState({ patientlist: fetchedDataList.data, isLoadMoredata: false, isLoading: false, });
+    }
+  }
 
   handleOnDelete = (patientname, id) => {
     this.setState({
@@ -502,73 +140,46 @@ export default class PatientList extends Component {
     if (this.state.serachText === "" || null) {
       window.location.reload(false);
     } else {
-      this.setState({
-        isSearching: true,
-        isSearchDataShow: true,
-      });
+      this.setState({ isSearching: true, isSearchDataShow: true, });
 
       const searchText = this.state.serachText.toLowerCase().replace(/\s/g, "");
+      const resultPatientlist = await PatientService.searchByName(searchText);
 
-      //const resultPatientlist = await Service.getSearchRes(
-      //  "patients",
-      //  searchText,
-      //  this.props.persionUidDeatils.uid,
-      //  this.props.persionUidDeatils.uid
-      //);
-
-      const resultPatientlist = "error";
-      if (resultPatientlist === "error") {
-        this.setState({
-          isSearching: false,
-          openErrorDailog: true,
-        });
+      if (resultPatientlist && resultPatientlist.data) {
+        this.setState({ isSearching: false, patientlist: resultPatientlist.data, });
       } else {
-        this.setState({
-          patientlist: resultPatientlist,
-          isSearching: false,
-        });
+        this.setState({ isSearching: false, openErrorDailog: true, });
       }
     }
   };
 
   handleSuccessDailog = () => {
-    this.setState({
-      openFormDailog: false,
-      openAlertDailog: true,
-    });
+    this.setState({ openFormDailog: false, openAlertDailog: true, });
   };
+
   handleErrorDailog = () => {
-    this.setState({
-      openFormDailog: false,
-      openConfirmDailog: false,
-      openErrorDailog: true,
-    });
+    this.setState({ openFormDailog: false, openConfirmDailog: false, openErrorDailog: true, });
   };
+
   closeFormDailog = () => {
-    this.setState({
-      openFormDailog: false,
-    });
+    this.setState({ openFormDailog: false, });
   };
+
   closeAlertDailog = () => {
-    this.setState({
-      openAlertDailog: false,
-    });
+    this.setState({ openAlertDailog: false, });
     window.location.reload(false);
   };
+
   closeErrorDailog = () => {
-    this.setState({
-      openErrorDailog: false,
-    });
+    this.setState({ openErrorDailog: false, });
   };
+
   closeConfirmDailog = () => {
-    this.setState({
-      openConfirmDailog: false,
-    });
+    this.setState({ openConfirmDailog: false, });
   };
+
   setCloseBtnAppear = () => {
-    this.setState({
-      isCloseBtnAppear: false,
-    });
+    this.setState({ isCloseBtnAppear: false, });
   };
 
   render() {
@@ -604,7 +215,7 @@ export default class PatientList extends Component {
             openDailog={this.state.openErrorDailog}
             onSetOpenDailog={this.closeErrorDailog}
             title="Error"
-            des="Someting went wrong. Try again"
+            des="Someting went wrong. Try again..."
           ></ErorrDialogBox>
 
           <DailogboxFormPrompt
@@ -619,12 +230,14 @@ export default class PatientList extends Component {
               handleErrorDailog={this.handleErrorDailog}
               collectionName="patients"
               id="patientid"
+              NewPatient={true}
+              personDetail={null}
             ></AddPersonDetails>
           </DailogboxFormPrompt>
           <div className="topheader">
             <ul>
               <li>
-                <i class="fa fa-users fa-2x" aria-hidden="true"></i>
+                <i className="fa fa-users fa-2x" aria-hidden="true"></i>
               </li>
               <li>
                 <h5>Patients</h5>
@@ -668,7 +281,7 @@ export default class PatientList extends Component {
             <a href="#">
               <button
                 type="button"
-                className="btn btn-warning"
+                className="btn btn-warning btn-yellow"
                 onClick={() => {
                   this.setState({
                     openFormDailog: true,
@@ -680,17 +293,16 @@ export default class PatientList extends Component {
             </a>
           </div>
 
-          <table className="table table-striped">
+          <table className="table table-striped table-hover">
             <thead className="thead tablehead">
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">Profile</th>
+                <th scope="col">Patient Id</th>
                 <th scope="col">Name</th>
                 <th scope="col">Sex</th>
                 <th scope="col">Age</th>
-                <th scope="col">Blood Group</th>
                 <th scope="col">Mobile</th>
-                {/* <th scope="col">Email</th> */}
+                <th scope="col">Email</th>
                 <th scope="col">City</th>
                 <th scope="col">Date</th>
                 <th scope="col">Time</th>
@@ -699,7 +311,7 @@ export default class PatientList extends Component {
             </thead>
 
             <tbody className="tablebody">
-              {!this.state.isLoading ? (
+              {this.state.isLoading ? (
                 <tr className="loading_spinner">
                   <td colSpan="11"><i className="fas fa-spinner fa-pulse fa-2x "></i></td>
                 </tr>
@@ -717,13 +329,13 @@ export default class PatientList extends Component {
                 this.state.patientlist.map((p) => {
                   count++;
 
-                  let date = new Date(p.timeStamp.seconds * 1000 + p.timeStamp.nanoseconds / 1000000,);
+                  let date = new Date(p.createdAt);
                   const createdTime = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
                   const createdDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
                   const sendData = {
                     ...p,
-                    collectionName: "Update record for : " + p.firstname + " " + p.lastname,
-                    personId: p.patientid,
+                    collectionName: "View record for : " + p.firstname + " " + p.lastname,
+                    patientid: p._id,
                   };
 
                   return (
@@ -731,14 +343,8 @@ export default class PatientList extends Component {
                       <td className="align-middle" scope="row">
                         {count}
                       </td>
-                      <td className="align-middle">
-                        {p.imgaeurl === "" ? (
-                          <div className="userbg">
-                            <i className="fa fa-user fa-2x"></i>
-                          </div>
-                        ) : (
-                          <img className="image" alt="" srcSet={p.imgaeurl} />
-                        )}
+                      <td className="align-left">
+                        {p._id === "" ? "N/A" : p._id}
                       </td>
                       <td className="align-middle">
                         {p.firstname + " " + p.lastname}
@@ -748,16 +354,13 @@ export default class PatientList extends Component {
                         {p.age === "" ? "N/A" : p.age}
                       </td>
                       <td className="align-middle">
-                        {p.bloodgroup === "" ? "N/A" : p.bloodgroup}
-                      </td>
-                      <td className="align-middle">
                         {" "}
                         {p.phonenumber === "" ? "N/A" : p.phonenumber}
                       </td>
-                      {/* <td className="align-middle">
-                          {" "}
-                          {p.email == "" ? "N/A" : p.email}
-                        </td> */}
+                      <td className="align-middle">
+                        {" "}
+                        {p.email === "" ? "N/A" : p.email}
+                      </td>
                       <td className="align-middle">
                         {p.city === "" ? "N/A" : p.city}
                       </td>
@@ -768,7 +371,7 @@ export default class PatientList extends Component {
                         {createdTime === "" ? "N/A" : createdTime}
                       </td>
                       <td className="align-middle">
-                        <Link to="/updaterecord" state={{ patientDetails: sendData }}>
+                        <Link to="/viewpatient" state={{ patientDetails: sendData }}>
                           <button type="button" className="btn btn-success" >
                             <i className="fa fa-edit edit-patient" aria-hidden="true"></i>
                           </button>
@@ -799,8 +402,7 @@ export default class PatientList extends Component {
             ) : (
               <div className="nomoredatatext">{this.state.noMoreDataText}</div>
             )}
-            {this.state.patientlist.length === 0 ? null : this.state
-              .isSearchDataShow ? null : (
+            {this.state.patientlist.length === 0 ? null : this.state.isSearchDataShow ? null : (
               <button
                 type="button"
                 className="btn btn-warning"

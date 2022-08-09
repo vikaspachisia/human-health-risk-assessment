@@ -25,11 +25,11 @@ export default function AlertDialogBox(props) {
       aria-describedby="alert-dialog-slide-description"
     >
       <DialogTitle id="alert-dialog-slide-title">
-        <div>{props.title}</div>
+        <div style={{ fontSize: "15px", fontWeight: "bold" }}>{props.title}</div>
       </DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-slide-description">
-          <div style={{ fontSize: "13px" }}>{props.des}</div>
+          <div style={{ fontSize: "14px" }}>{props.des}</div>
         </DialogContentText>
       </DialogContent>
       <DialogActions>

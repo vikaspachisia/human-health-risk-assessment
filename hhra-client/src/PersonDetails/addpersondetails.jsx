@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 
-import NewPersonDetailsForm from "./newpersondetailsform";
+import PersonDetailsForm from "./PersonDetailsForm";
+import PatientInfoService from "../services/patient-service.js"
 
 
 class AddPersonDetails extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       isLoading: false,
@@ -22,13 +23,70 @@ class AddPersonDetails extends Component {
         zip: ""
       }
     };
+
+  }
+  componentDidMount() {
+    if (this.props.personDetail) {
+      this.setState(
+        {
+          formData: {
+            address: this.props.personDetail.address,
+            age: this.props.personDetail.age,
+            city: this.props.personDetail.city,
+            email: this.props.personDetail.email,
+            firstname: this.props.personDetail.firstname,
+            lastname: this.props.personDetail.lastname,
+            phonenumber: this.props.personDetail.phonenumber,
+            sex: this.props.personDetail.sex,
+            state: this.props.personDetail.state,
+            zip: this.props.personDetail.zip,
+          }
+        });
+    }
   }
 
   handleSubmit = () => {
-    this.setState({
-      isLoading: true,
-    });
+    this.setState({ isLoading: true, });
     this.props.setCloseBtnAppear();
+
+    let sendData = {
+      ...this.state.formData,
+      searchbyname: (
+        this.state.formData.firstname + this.state.formData.lastname
+      ).toLowerCase(),
+    };
+
+    if (this.props.NewPatient) {
+      // Registring new patient
+      PatientInfoService.create(sendData).then(
+        response => {
+          this.setState({ isLoading: false, });
+          this.props.handleSuccessDailog();
+          console.log(response.data);
+        },
+        error => {
+          this.setState({ isLoading: false, });
+          this.props.handleErrorDailog();
+        }
+      ).catch(e => {
+        console.log(e);
+      });
+    } else {
+      // Updating existing patient
+      PatientInfoService.update(this.props.personDetail.patientid, sendData).then(
+        response => {
+          this.setState({ isLoading: false, });
+          this.props.handleSuccessDailog();
+          console.log(response.data);
+        },
+        error => {
+          this.setState({ isLoading: false, });
+          this.props.handleErrorDailog();
+        }
+      ).catch(e => {
+        console.log(e);
+      });
+    }
   };
 
   handleChange = (date) => {
@@ -57,6 +115,7 @@ class AddPersonDetails extends Component {
       });
     }
   };
+
   onEdit = (e) => {
     const formData = this.state.formData;
     this.setState({
@@ -80,14 +139,15 @@ class AddPersonDetails extends Component {
         <div className="container main_section" style={{ marginTop: "10px" }}>
           <div className="row">
             <div className="col-sm">
-              <NewPersonDetailsForm
+              <PersonDetailsForm
                 handleSubmit={this.handleSubmit}
                 onEdit={this.onEdit}
-                // startDate={this.state.startDate}
                 date={this.state.date}
                 htmlelement={this.state.htmlelement}
                 handleChange={this.handleChange}
-              ></NewPersonDetailsForm>
+                NewPatient={this.props.NewPatient}
+                personDetail={this.props.personDetail ? this.props.personDetail : this.state.formData}
+              />
             </div>
           </div>
         </div>
@@ -95,10 +155,5 @@ class AddPersonDetails extends Component {
     );
   }
 }
-const mapStateToProps = (state) => {
-  return {
-    persionUidDeatils: state.persionUidDeatils,
-  };
-};
+
 export default AddPersonDetails;
-//export default connect(mapStateToProps, null)(AddPersonDetails);
