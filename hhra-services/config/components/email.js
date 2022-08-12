@@ -4,7 +4,7 @@ const joi = require('joi');
 
 console.log('reading process environment...');
 let envVars = { ...process.env };
-envVars['EMAIL_PORTS'] = JSON.parse(envVars['EMAIL_PORTS']);
+if ('EMAIL_PORTS' in envVars) { envVars['EMAIL_PORTS'] = JSON.parse(envVars['EMAIL_PORTS']); }
 console.log('read process environment.');
 
 console.log('creating joi schema...');
@@ -15,7 +15,7 @@ const varsSchema = joi.object({
       .default('aws'),
   EMAIL_NAME:
     joi.string().required()
-      .default('hhra-services-email-all'),
+      .default('hhra-email'),
   EMAIL_USERNAME:
     joi.string()
       .default(''),

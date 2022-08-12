@@ -14,7 +14,6 @@ module.exports = {
       NODE_ENABLED: true,
       //App details
       APP_GROUP: "default", //will be used as server_group by gateway.
-      BLOCKED_APPS: [],
       SECRET_KEYS: ['webv1.0'],
       //Utility details
       LOGGER_ENABLED: true,

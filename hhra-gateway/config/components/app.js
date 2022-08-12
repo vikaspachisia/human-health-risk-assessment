@@ -36,9 +36,9 @@ console.log('created map of apps.');
 
 console.log('reading process environment...');
 let envVars = { ...process.env };
-envVars['ALLOWED_APPS'] = JSON.parse(envVars['ALLOWED_APPS']);
-envVars['BLOCKED_APPS'] = JSON.parse(envVars['BLOCKED_APPS']);
-envVars['SECRET_KEYS'] = JSON.parse(envVars['SECRET_KEYS']);
+if ('ALLOWED_APPS' in envVars) { envVars['ALLOWED_APPS'] = JSON.parse(envVars['ALLOWED_APPS']); }
+if ('BLOCKED_APPS' in envVars) { envVars['BLOCKED_APPS'] = JSON.parse(envVars['BLOCKED_APPS']); }
+if ('SECRET_KEYS' in envVars) { envVars['SECRET_KEYS'] = JSON.parse(envVars['SECRET_KEYS']); }
 console.log('read process environment.');
 
 console.log('creating joi schema...');

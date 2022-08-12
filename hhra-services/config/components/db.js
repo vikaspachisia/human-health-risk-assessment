@@ -15,7 +15,7 @@ const varsSchema = joi.object({
             .default('mongo'),    
     DB_NAME:
         joi.string().required()
-        .default('hhra-services-db-all'),
+        .default('hhra'),
     DB_USERNAME:
         joi.string()
         .default(''),

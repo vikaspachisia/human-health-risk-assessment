@@ -4,7 +4,7 @@ const joi = require('joi');
 
 console.log('reading process environment...');
 let envVars = { ...process.env };
-envVars['SMS_PORTS'] = JSON.parse(envVars['SMS_PORTS']);
+if ('SMS_PORTS' in envVars) { envVars['SMS_PORTS'] = JSON.parse(envVars['SMS_PORTS']); }
 console.log('read process environment.');
 
 console.log('creating joi schema...');
@@ -15,7 +15,7 @@ const varsSchema = joi.object({
       .default('aws'),
   SMS_NAME:
     joi.string().required()
-      .default('hhra-services-sms-all'),
+      .default('hhra-sms'),
   SMS_USERNAME:
     joi.string()
       .default(''),

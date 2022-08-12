@@ -13,8 +13,7 @@ module.exports = {
         NODE_PORT: 4040,
         NODE_ENABLED: true,
         //App details
-        APP_GROUP: "default",
-        BLOCKED_APPS: [],
+        APP_GROUP: "default",        
         SECRET_KEYS: ['webv1.0'],
         //Utility details
         LOGGER_ENABLED: true,
