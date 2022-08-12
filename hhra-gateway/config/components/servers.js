@@ -2,45 +2,44 @@
 
 const joi = require('joi');
 
-const servers = [
-        { name: 'account', hostname: 'localhost', port: 4040 },
-        { name: 'profile', hostname: 'localhost', port: 4040 },
-        { name: 'aaa', hostname: 'localhost', port: 4040 },
-        { name: 'log', hostname: 'localhost', port: 4040 },
-        { name: 'report', hostname: 'localhost', port: 4040 },
-        { name: 'chat', hostname: 'localhost', port: 4040 },
-        { name: 'phone', hostname: 'localhost', port: 4040 }    
+console.log('creating map of apps...');
+const server_groups = [
+  { group: 'persona', hostname: 'localhost', port: 4040 },
+  { group: 'aaa', hostname: 'localhost', port: 4040 },
+  { group: 'domain', hostname: 'localhost', port: 4040 },
+  { group: 'interaction', hostname: 'localhost', port: 4040 }
 ];
 
+console.log('created map of apps.');
+
+console.log('reading process environment...');
+let envVars = { ...process.env };
+console.log('read process environment.');
+
+console.log('creating joi schema...');
 const varsSchema = joi.object({
-  SERVERS: joi.string().required()
-        .default(JSON.stringify(servers))
-}).unknown()
-    .required();
-
-const { error, value: vars } = varsSchema.validate(process.env);
-if (error) {
-    throw new Error(`Config(servers) validation error: ${error.message}`);
-}
-
-const serverSchema = joi.object({
-  SERVERS: joi.array().items(
-    joi.object({
-      name: joi.string().required(),
-      hostname: joi.string().hostname().required(),
-      port: joi.number().required()
-    })
-  )
+  SERVER_GROUPS: joi.array().items({
+    group: joi.string().required(),
+    hostname: joi.string.required(),
+    port: joi.number().required()
+  })
+    .default(server_groups),
 }).unknown()
   .required();
+console.log('created joi schema.');
 
-const { errorServer, value: varsServer } = serverSchema.validate(JSON.parse(vars.SERVERS));
-if (errorServer) {
-  throw new Error(`Config(servers) server validation error: ${errorServer.message}`);
+
+console.log('validating data...');
+const { error, value: vars } = varsSchema.validate(envVars);
+if (error) {
+  throw new Error(`Config(servers) validation error: ${error.message}`);
 }
+console.log('validated data.');
 
+console.log('creating config(servers)...');
 const config = {
-  servers: varsServer.SERVERS
+  server_groups: vars.SERVER_GROUPS
 };
+console.log('created config(servers).');
 
 module.exports = config

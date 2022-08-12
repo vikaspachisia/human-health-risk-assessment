@@ -6,63 +6,100 @@ const apps = new Map([
   [
     'account',
     {
-      name: 'account service',
+      name: 'account',
+      display: 'account service',
       description: 'provide account related service requests such as user account servicing, device account servicing etc.',
-      group: 'app-group-1'
+      group: 'persona'
     }
   ],
 
   [
     'profile',
     {
-      name: 'profile service',
+      name: 'profile',
+      display: 'profile service',
       description: 'provide profile related service requests such as user profile servicing, device profile servicing etc.',
-      group: 'app-group-1'
+      group: 'persona'
     }
   ],
 
   [
-    'aaa',
+    'authentication',
     {
-      name: 'auth services',
-      description: 'provide auth related service requests such as user authentication servicing, user authorization servicing, device authentication servicing etc.',
-      group: 'app-group-1'
+      name: 'authentication',
+      display: 'authentication services',
+      description: 'provide auth related service requests such as user authentication servicing, device authentication servicing etc.',
+      group: 'aaa'
     }
   ],
 
   [
-    'log',
+    'authorization',
     {
-      name: 'log services',
-      description: 'provide log related service requests such as request logging, service auditing etc.',
-      group: 'app-group-2'
+      name: 'authorization',
+      display: 'authorization services',
+      description: 'provide auth related service requests such as user authorization servicing, device authorization servicing etc.',
+      group: 'aaa'
     }
   ],
 
   [
-    'report',
+    'audit',
     {
-      name: 'report services',
-      description: 'provide report related service requests such as tabular data, grouped data etc. especially for viewing purposes.',
-      group: 'app-group-2'
+      name: 'audit',
+      display: 'audit services',
+      description: 'provide audit or log related service requests.',
+      group: 'aaa'
+    }
+  ],
+
+  [
+    'metadata',
+    {
+      name: 'metadata',
+      display: 'metadata services',
+      description: 'provide metadata related service requests such as attributes of data used in a particular domain.',
+      group: 'domain'
+    }
+  ],
+
+  [
+    'domaindata',
+    {
+      name: 'domaindata',
+      display: 'domaindata services',
+      description: 'provide domain data related service requests used in a particular domain.',
+      group: 'domain'
     }
   ],
 
   [
     'chat',
     {
-      name: 'chat services',
+      name: 'chat',
+      display: 'chat services',
       description: 'provide communication related service requests especially chat in this case.',
-      group: 'app-group-3'
+      group: 'interaction'
     }
   ],
 
   [
-    'phone',
+    'sms',
     {
-      name: 'phone services',
-      description: 'provide communication related service requests such as sending SMS or making phone calls.',
-      group: 'app-group-3'
+      name: 'sms',
+      display: 'sms services',
+      description: 'provide communication related service requests such as sending SMS.',
+      group: 'interaction'
+    }
+  ],
+
+  [
+    'call',
+    {
+      name: 'call',
+      display: 'call services',
+      description: 'provide communication related service requests such as making phone calls.',
+      group: 'interaction'
     }
   ]
 ]);
@@ -76,14 +113,14 @@ envVars['SECRET_KEYS'] = JSON.parse(envVars['SECRET_KEYS']);
 console.log('read process environment.');
 
 console.log('creating joi schema...');
-const varsSchema = joi.object({
-  APP_NAME: joi.string().default('hhra-services-group-all'),
+const varsSchema = joi.object({  
   ALLOWED_APPS: joi.array().items(joi.string().required().valid(...apps.keys((k) => k)))
     .default(Array.from(apps.keys())),
   BLOCKED_APPS: joi.array().items(joi.string().valid(...apps.keys((k) => k)))
-  .default([]),
+    .default([]),
+  APP_GROUP: joi.string().default('default'),
   SECRET_KEYS: joi.array().items(joi.string().required())
-    .default(['hhra-services-group-all'])
+    .default(['secure-services'])
 }).unknown()
   .required();
 console.log('created joi schema.');
@@ -97,10 +134,10 @@ console.log('validated data.');
 
 console.log('creating config(app)...');
 const config = {
-  app: {
-    name: vars.APP_NAME,
+  app: {    
     allowed: vars.ALLOWED_APPS.map(appid => [appid, apps.get(appid)]),
     blocked: vars.BLOCKED_APPS.map(appid => [appid, apps.get(appid)]),
+    group: vars.APP_GROUP,
     secretkeys: vars.SECRET_KEYS
   }
 };
@@ -108,6 +145,5 @@ console.log('created config(app).');
 
 console.log(`config.app.allowed=${JSON.stringify(config.app.allowed)}`);
 console.log(`config.app.blocked=${JSON.stringify(config.app.blocked)}`);
-console.log(`config.app.secretkeys=${JSON.stringify(config.app.secretkeys)}`);
 
 module.exports = config

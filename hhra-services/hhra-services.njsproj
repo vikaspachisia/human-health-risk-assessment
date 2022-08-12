@@ -32,7 +32,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app.js" />
-    <Content Include="config\hhra-services-group-all.js">
+    <Content Include="config\interaction.js" />
+    <Content Include="config\domain.js" />
+    <Content Include="config\default.js" />
+    <Content Include="config\aaa.js" />
+    <Content Include="config\persona.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="config\components\app.js">

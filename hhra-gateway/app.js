@@ -1,7 +1,7 @@
 'use strict';
 
 var config = require('./config/index');
-var debug = require('debug')(config.app.name);
+var debug = require('debug')(config.app.group);
 var express = require('express');
 var session = require('express-session');
 var sessionStore = require('memorystore')(session);

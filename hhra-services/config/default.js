@@ -2,12 +2,12 @@
 
 const components = [
   './components/app',
-  './components/build',
-  './components/db',
+  './components/build',  
   './components/deploy',
-  './components/email',
   './components/logger',
-  './components/sms',
+  './components/db',
+  './components/email',  
+  './components/sms'
 ];
 
 let loadedComponents = [];

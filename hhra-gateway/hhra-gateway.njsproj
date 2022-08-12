@@ -31,7 +31,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app.js" />
-    <Content Include="config\api.js">
+    <Content Include="config\default.js" />
+    <Content Include="config\frontend.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="config\components\build.js">
@@ -49,13 +50,10 @@
     <Content Include="config\index.js">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="config\mobile.js">
+    <Content Include="config\external.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="config\components\servers.js">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="config\web.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="core\index.js">
