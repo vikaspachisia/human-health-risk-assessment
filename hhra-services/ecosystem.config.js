@@ -3,6 +3,7 @@ module.exports = {
     name: 'hhra-services',
     script: 'app.js',
     watch: '.',
+    autorestart: false,
     env: {
       //Build details
       BUILD_CONFIGURATION: "debug",

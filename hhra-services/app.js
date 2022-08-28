@@ -22,9 +22,9 @@ app.use(session({
     checkPeriod: 86400000 // prune expired entries every 24h
   }),
   resave: false,
-  secret: config.app.session_secret
-}))
-
+  saveUninitialized: false,
+  secret: config.app.secretkeys
+}));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

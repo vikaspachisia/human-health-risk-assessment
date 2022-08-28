@@ -22,13 +22,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use(session({
-    cookie: { maxAge: 86400000 },
-    store: new sessionStore({
-        checkPeriod: 86400000 // prune expired entries every 24h
-    }),
-    resave: false,
-    secret: config.app.session_secret
-}))
+  cookie: { maxAge: 86400000 },
+  store: new sessionStore({
+    checkPeriod: 86400000 // prune expired entries every 24h
+  }),
+  resave: false,
+  saveUninitialized: false,
+  secret: config.app.secretkeys
+}));
 
 app.use('/', routers.rootRouter);
 

@@ -14,15 +14,16 @@ console.log('created map of apps.');
 
 console.log('reading process environment...');
 let envVars = { ...process.env };
+if ('SERVER_GROUPS' in envVars) { envVars['SERVER_GROUPS'] = JSON.parse(envVars['SERVER_GROUPS']); }
 console.log('read process environment.');
 
 console.log('creating joi schema...');
 const varsSchema = joi.object({
-  SERVER_GROUPS: joi.array().items({
+  SERVER_GROUPS: joi.array().items(joi.object({
     group: joi.string().required(),
-    hostname: joi.string.required(),
+    hostname: joi.string().required(),
     port: joi.number().required()
-  })
+  }))
     .default(server_groups),
 }).unknown()
   .required();
