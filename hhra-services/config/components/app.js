@@ -105,11 +105,14 @@ const apps = new Map([
 ]);
 console.log('created map of apps.');
 
+//optimize the entire cast design in next iteration
 console.log('reading process environment...');
 let envVars = { ...process.env };
 if ('ALLOWED_APPS' in envVars) { envVars['ALLOWED_APPS'] = JSON.parse(envVars['ALLOWED_APPS']); }
 if ('BLOCKED_APPS' in envVars) { envVars['BLOCKED_APPS'] = JSON.parse(envVars['BLOCKED_APPS']); }
 if ('SECRET_KEYS' in envVars) { envVars['SECRET_KEYS'] = JSON.parse(envVars['SECRET_KEYS']); }
+if ('EMAIL_PORTS' in envVars) { envVars['EMAIL_PORTS'] = JSON.parse(envVars['EMAIL_PORTS']); }
+if ('SMS_PORTS' in envVars) { envVars['SMS_PORTS'] = JSON.parse(envVars['SMS_PORTS']); }
 console.log('read process environment.');
 
 console.log('creating joi schema...');
