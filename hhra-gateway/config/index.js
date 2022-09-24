@@ -17,7 +17,7 @@ const path = require('path');
  *    and remove the requires from other systems like pm2, npm and the bare node.js
  * 3. the bare node.js can be run from command line or by pressing F5 (Run Project) in Visual Studio. This is of great help in debugging.
  * -------------------------------------------------------------------------------------------------------------------------------------------
- * /
+ */
 //const dotenvConfig = require('dotenv').config({ path: 'ecosystem.config.env' });
 
 const app_group = `./${process.env.APP_GROUP}`;
