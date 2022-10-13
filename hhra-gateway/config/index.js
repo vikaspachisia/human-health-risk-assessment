@@ -20,17 +20,17 @@ const path = require('path');
  */
 //const dotenvConfig = require('dotenv').config({ path: 'ecosystem.config.env' });
 
-const app_group = `./${process.env.APP_GROUP}`;
+const app_type = `./${process.env.APP_TYPE}`;
 
 
 let config;
 try {
   console.log(`loading ${app_group}...`);
-  config = require(`${app_group}`);
-  console.log(`loaded ${app_group}...`);
+  config = require(`${app_type}`);
+  console.log(`loaded ${app_type}...`);
 } catch (ex) {
     if (ex.code === 'MODULE_NOT_FOUND') {
-      throw new Error(`No config for process type: ${app_group}`);
+      throw new Error(`No config for process type: ${app_type}`);
     }
 
     throw ex;
