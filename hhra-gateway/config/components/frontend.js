@@ -2,38 +2,57 @@
 
 const joi = require('joi');
 
-console.log('creating map of frontends...');
-const frontends = [
-  {
-    group: 'interactive',
-    description: "represents clients such as web and mobile that may have interactive conversations.",
-    hostname: 'localhost',
-    port: 3000
-  },
-  {
-    group: 'public',
-    description: "represents clients such as third party sdk, libraries or APIs' such as RESTful and HTTP.",
-    hostname: 'localhost',
-    port: 3002
-  },
 
-];
+console.log('creating map of frontends...');
+const frontends = new Map([
+  [
+    'web',
+    {
+      id: 'frontend.api.web',
+      name: 'web client frontend',
+      description: 'The web client primarily interacting with users through browsers. Mostly runs on desktop/laptop form factors.',
+      SESSION_NAME: 'session.api.web',
+      SESSION_SECRET: 'websession'
+    }
+  ],
+  [
+    'mobile',
+    {
+      id: 'frontend.api.mobile',
+      name: 'mobile app frontend',
+      description: 'The mobile client primarily interacting with users through apps. Mostly runs on mobile form factors.',
+      SESSION_NAME: 'session.api.mobile',
+      SESSION_SECRET: 'mobilesession'
+    }
+  ],
+  [
+    'public',
+    {
+      id: 'frontend.api.public',
+      name: 'public api frontend',
+      description: 'The public client primarily interacting with users through api calls. Mostly runs in non interactive mode from other servers and SDK.',
+      SESSION_NAME: 'session.api.public',
+      SESSION_SECRET: 'publicsession'
+    }
+  ]
+]);
+
 console.log('created map of frontends.');
 
 console.log('reading process environment...');
 let envVars = { ...process.env };
-if ('FRONTEND_GROUPS' in envVars) { envVars['FRONTEND_GROUPS'] = JSON.parse(envVars['FRONTEND_GROUPS']); }
+if ('FRONTENDS' in envVars) { envVars['FRONTENDS'] = JSON.parse(envVars['FRONTENDS']); }
 console.log('read process environment.');
 
 console.log('creating joi schema...');
 const varsSchema = joi.object({
-  FRONTEND_GROUPS: joi.array().items(joi.object({
-    group: joi.string().required(),
-    description: joi.string().required(),
-    hostname: joi.string(),
-    port: joi.number()
-  }))
-    .default(frontend_groups),
+  FRONTENDS: joi.array().items({
+    ID: joi.string().required().valid(...frontends.keys((k) => k)),
+    NAME: joi.string().default(frontends.get(joi.ref('ID')).name),
+    DESCRIPTION: joi.string().default(frontends.get(joi.ref('ID')).description),
+    SESSION_NAME: joi.string().default(frontends.get(joi.ref('ID')).SESSION_NAME),
+    SESSION_SECRET: joi.string().default(frontends.get(joi.ref('ID')).SESSION_SECRET)
+  })
 }).unknown()
   .required();
 console.log('created joi schema.');

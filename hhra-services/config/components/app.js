@@ -116,14 +116,14 @@ if ('SMS_PORTS' in envVars) { envVars['SMS_PORTS'] = JSON.parse(envVars['SMS_POR
 console.log('read process environment.');
 
 console.log('creating joi schema...');
-const varsSchema = joi.object({  
+const varsSchema = joi.object({
+  APP_GROUP: joi.string().default('default'),
+  SECRET_KEYS: joi.array().items(joi.string().required())
+    .default(['secure-services']),
   ALLOWED_APPS: joi.array().items(joi.string().required().valid(...apps.keys((k) => k)))
     .default(Array.from(apps.keys())),
   BLOCKED_APPS: joi.array().items(joi.string().valid(...apps.keys((k) => k)))
-    .default([]),
-  APP_GROUP: joi.string().default('default'),
-  SECRET_KEYS: joi.array().items(joi.string().required())
-    .default(['secure-services'])
+    .default([])
 }).unknown()
   .required();
 console.log('created joi schema.');
@@ -138,10 +138,10 @@ console.log('validated data.');
 console.log('creating config(app)...');
 const config = {
   app: {    
-    allowed: vars.ALLOWED_APPS.map(appid => [appid, apps.get(appid)]),
-    blocked: vars.BLOCKED_APPS.map(appid => [appid, apps.get(appid)]),
     group: vars.APP_GROUP,
-    secretkeys: vars.SECRET_KEYS
+    secretkeys: vars.SECRET_KEYS,
+    allowed: vars.ALLOWED_APPS.map(appid => [appid, apps.get(appid)]),
+    blocked: vars.BLOCKED_APPS.map(appid => [appid, apps.get(appid)])
   }
 };
 console.log('created config(app).');

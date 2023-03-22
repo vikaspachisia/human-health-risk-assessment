@@ -39,6 +39,9 @@
     <Content Include="config\components\frontend.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="config\default.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="config\mobile.js" />
     <Content Include="config\web.js">
       <SubType>Code</SubType>

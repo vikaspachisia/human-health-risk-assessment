@@ -57,16 +57,16 @@ console.log(...apps.keys((k) => k));
 
 console.log('creating joi schema...');
 const varsSchema = joi.object({  
-  APP_TYPE: joi.string().required().valid(...apps.keys((k) => k))
+  APP_GROUP: joi.string().required().valid(...apps.keys((k) => k))
     .default(apps.keys().next().value),
-  FRONTENDS: joi.array().items(joi.string().required().valid(apps.get(joi.ref('APP_TYPE')).frontends))
-    .default(Array.from(apps.get(joi.ref('APP_TYPE')).frontends)),
-  BACKENDS: joi.array().items(joi.string().required().valid(apps.get(joi.ref('APP_TYPE')).backends))
-    .default(Array.from(apps.get(joi.ref('APP_TYPE')).backends)),
+  FRONTENDS: joi.array().items(joi.string().required().valid(apps.get(joi.ref('APP_GROUP')).frontends))
+    .default(Array.from(apps.get(joi.ref('APP_GROUP')).frontends)),
+  BACKENDS: joi.array().items(joi.string().required().valid(apps.get(joi.ref('APP_GROUP')).backends))
+    .default(Array.from(apps.get(joi.ref('APP_GROUP')).backends)),
   HOSTNAME: joi.string().hostname()
-    .default(apps.get(joi.ref('APP_TYPE')).hostname),
+    .default(apps.get(joi.ref('APP_GROUP')).hostname),
   PORT: joi.number()
-    .default(apps.get(joi.ref('APP_TYPE')).port)
+    .default(apps.get(joi.ref('APP_GROUP')).port)
 }).unknown()
   .required();
 console.log('created joi schema.');
@@ -81,7 +81,7 @@ console.log('validated data.');
 console.log('creating config(app)...');
 const config = {
   app: {
-    type: vars.APP_TYPE,
+    group: vars.APP_GROUP,
     frontends: vars.FRONTENDS,
     backends: vars.BACKENDS,
     hostname: vars.HOSTNAME,
