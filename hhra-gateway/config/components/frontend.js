@@ -44,14 +44,16 @@ let envVars = { ...process.env };
 if ('FRONTENDS' in envVars) { envVars['FRONTENDS'] = JSON.parse(envVars['FRONTENDS']); }
 console.log('read process environment.');
 
+let currentFrontends = frontends.get('web');
+
 console.log('creating joi schema...');
 const varsSchema = joi.object({
   FRONTENDS: joi.array().items({
     ID: joi.string().required().valid(...frontends.keys((k) => k)),
-    NAME: joi.string().default(frontends.get(joi.ref('ID')).name),
-    DESCRIPTION: joi.string().default(frontends.get(joi.ref('ID')).description),
-    SESSION_NAME: joi.string().default(frontends.get(joi.ref('ID')).SESSION_NAME),
-    SESSION_SECRET: joi.string().default(frontends.get(joi.ref('ID')).SESSION_SECRET)
+    NAME: joi.string().default(currentFrontends.name),
+    DESCRIPTION: joi.string().default(currentFrontends.description),
+    SESSION_NAME: joi.string().default(currentFrontends.SESSION_NAME),
+    SESSION_SECRET: joi.string().default(currentFrontends.SESSION_SECRET)
   })
 }).unknown()
   .required();

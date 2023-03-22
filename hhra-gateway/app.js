@@ -16,7 +16,7 @@ var routers = require('./routers/index');
 
 var app = express();
 
-app.use(middlewares.auditHandler.logRequest());
+app.use(middlewares.auditHandler.logRequest);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());

@@ -53,20 +53,20 @@ if ('BACKENDS' in envVars) { envVars['BACKENDS'] = JSON.parse(envVars['BACKENDS'
 
 console.log('read process environment.');
 
-console.log(...apps.keys((k) => k));
+let currentAppGroup = apps.get('web');
 
 console.log('creating joi schema...');
 const varsSchema = joi.object({  
   APP_GROUP: joi.string().required().valid(...apps.keys((k) => k))
     .default(apps.keys().next().value),
-  FRONTENDS: joi.array().items(joi.string().required().valid(apps.get(joi.ref('APP_GROUP')).frontends))
-    .default(Array.from(apps.get(joi.ref('APP_GROUP')).frontends)),
-  BACKENDS: joi.array().items(joi.string().required().valid(apps.get(joi.ref('APP_GROUP')).backends))
-    .default(Array.from(apps.get(joi.ref('APP_GROUP')).backends)),
+  FRONTENDS: joi.array().items(joi.string().required().valid(...currentAppGroup.frontends))
+    .default(Array.from(currentAppGroup.frontends)),
+  BACKENDS: joi.array().items(joi.string().required().valid(...currentAppGroup.backends))
+    .default(Array.from(currentAppGroup.backends)),
   HOSTNAME: joi.string().hostname()
-    .default(apps.get(joi.ref('APP_GROUP')).hostname),
+    .default(currentAppGroup.hostname),
   PORT: joi.number()
-    .default(apps.get(joi.ref('APP_GROUP')).port)
+    .default(currentAppGroup.port)
 }).unknown()
   .required();
 console.log('created joi schema.');
